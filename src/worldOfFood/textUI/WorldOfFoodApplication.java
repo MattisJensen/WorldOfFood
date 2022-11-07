@@ -18,5 +18,4 @@ public class WorldOfFoodApplication {
         CommandLineClient client = new CommandLineClient();
         client.play();
     }
-
 }
