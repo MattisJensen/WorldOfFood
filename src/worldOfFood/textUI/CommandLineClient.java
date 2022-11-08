@@ -17,6 +17,7 @@ public class CommandLineClient implements GameSettings {
     private Person person;
     private Parser parser;
     private Game game;
+    private static boolean finished;
 
     public CommandLineClient() {
         person = new Person();
@@ -26,15 +27,19 @@ public class CommandLineClient implements GameSettings {
     }
 
     public void play() {
-        person.setNameFromInput();
         printWelcome();
-        boolean finished = false;
+        finished = false;
         while (!finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
         System.out.println("Thank you for playing. Good bye.");
     }
+
+    public static void setFinished(boolean b) {
+        finished = b;
+    }
+
 
     private void printWelcome() {
         System.out.println();

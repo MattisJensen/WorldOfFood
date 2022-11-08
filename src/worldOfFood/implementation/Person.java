@@ -12,7 +12,7 @@ public class Person implements GameSettings {
     /* Constructor af Person klassen */
     public Person() {
         inv = new Inventory();
-//        setNameFromInput();
+        setNameFromInput();
     }
 
     /* Inventory af personen */
