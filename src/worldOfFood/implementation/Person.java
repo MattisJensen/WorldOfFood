@@ -49,10 +49,10 @@ public class Person implements GameSettings {
 
         /* denne blok udføres altid (medmindre man svarede 'no' før */
         System.out.println("Please enter a new username: ");
-        name = scan.next().trim();
+        name = scan.nextLine().trim();
 
         if (name.trim().isEmpty()) {  // string -> trim() fjerner mellemrum af string -> is empty kigger om string er tom
-            System.out.print("This is not a username.");
+            System.out.println("This is not a username.");
             name = null;    // for at være sikker på, at der ikke spørges (igen) efter om man vil omdøbe sig
             setNameFromInput();
         } else {
