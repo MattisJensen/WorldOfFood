@@ -58,7 +58,8 @@ public class Person implements GameSettings {
         } else {
             System.out.println("Your username is now '" + name + "'");
         }
-//        scan.close();
+        scan.
+        scan.close();
     }
 
 
