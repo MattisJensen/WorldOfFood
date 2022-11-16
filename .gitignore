@@ -1,6 +1,7 @@
 ## IntelliJ related stuff ##
 out
 .idea
+**/**/*.iml
 
 # CMake
 cmake-build-*/

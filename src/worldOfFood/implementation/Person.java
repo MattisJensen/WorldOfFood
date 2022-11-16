@@ -1,5 +1,7 @@
 package worldOfFood.implementation;
 
+import worldOfFood.textUI.CommandLineClient;
+
 import java.util.Scanner;
 
 public class Person implements GameSettings {
@@ -32,7 +34,7 @@ public class Person implements GameSettings {
 
     /* Setter til navn ud fra konsolinput - metoden kan skelne mellem omdøbning og først navngivning */
     public void setNameFromInput() {
-        Scanner scan = new Scanner(System.in); // tager input fra konsolen
+        Scanner scan = CommandLineClient.scan(); // tager input fra konsolen
 
         /* denne blok udføres kun ved omdøbning */
         if (name != null) { // hvis name ikke er 'null', blev der allerede oprettet et navn og koden i blokken udføres
@@ -58,8 +60,6 @@ public class Person implements GameSettings {
         } else {
             System.out.println("Your username is now '" + name + "'");
         }
-        scan.
-        scan.close();
     }
 
 

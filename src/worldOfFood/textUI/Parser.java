@@ -6,12 +6,12 @@ import worldOfFood.Command;
 import worldOfFood.Game;
 
 public class Parser {
-    private Scanner reader;
     private final Game game;
+    private Scanner scan;
 
     public Parser(Game game) {
         this.game = game;
-        this.reader = new Scanner(System.in);
+        this.scan = CommandLineClient.scan();
     }
 
     public Command getCommand() {
@@ -21,7 +21,7 @@ public class Parser {
 
         System.out.print("> ");
 
-        inputLine = reader.nextLine();
+        inputLine = scan.nextLine();
 
         Scanner tokenizer = new Scanner(inputLine);
         if (tokenizer.hasNext()) {
@@ -30,7 +30,7 @@ public class Parser {
                 word2 = tokenizer.next();
             }
         }
-
+        tokenizer.close();
         return game.getCommand(word1, word2);
     }
 }

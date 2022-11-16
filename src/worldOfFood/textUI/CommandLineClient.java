@@ -10,18 +10,18 @@ import worldOfFood.Commands;
 import worldOfFood.Game;
 import worldOfFood.implementation.*;
 
-/**
- * @author ancla
- */
+import java.util.Scanner;
+
 public class CommandLineClient implements GameSettings {
     private Person person;
     private Parser parser;
     private Game game;
+    private static Scanner scanner = new Scanner(System.in);
+    ;
     private static boolean finished;
 
     public CommandLineClient() {
         person = new Person();
-        System.out.println();
         game = new Game();
         parser = new Parser(game);
     }
@@ -76,7 +76,7 @@ public class CommandLineClient implements GameSettings {
             System.out.println("Your command words are:");
             printHelp();
 
-        /* Go command */
+            /* Go command */
         } else if (commandWord == Commands.GO) {
             if (game.goRoom(command)) {
                 System.out.println(game.getRoomDescription());
@@ -85,7 +85,7 @@ public class CommandLineClient implements GameSettings {
                 System.out.println("Can't walk in that direction.");
             }
 
-        /* Quit command */
+            /* Quit command */
         } else if (commandWord == Commands.QUIT) {
             if (game.quit(command)) {
                 wantToQuit = true;
@@ -93,11 +93,11 @@ public class CommandLineClient implements GameSettings {
                 System.out.println("Quit what?");
             }
 
-        /* Print Inventory command */
+            /* Print Inventory command */
         } else if (commandWord == Commands.INVENTORY) {
             person.getInventory().printInventory();
 
-        /* Eat command */
+            /* Eat command */
         } else if (commandWord == Commands.EAT) {
             if (command.hasCommandValue()) { // checker om der blevet skrevet, hvad der skal spises
                 int c = person.getInventory().getItems().size(); // sætter c til den aktuelle størrelse af inventory
@@ -121,7 +121,7 @@ public class CommandLineClient implements GameSettings {
                 System.out.println("Try again!");
             }
 
-        /* Collect item command */
+            /* Collect item command */
         } else if (commandWord == Commands.COLLECT) {
             FoodContainer currentFC = game.getCurrentRoom().getFoodContainer(); // gemmer reference til den aktuelle fc
 
@@ -150,7 +150,7 @@ public class CommandLineClient implements GameSettings {
                 System.out.println("You have to enter a number in order to collect something.");
             }
 
-        /* Stats command */
+            /* Stats command */
         } else if (commandWord == Commands.STATS) {
             System.out.println("You have " + person.getFoodPoints() + "/" + P_MAX_FOODPOINTS + " foodpoints and " + person.getClimatePoints() + " climatepoints.");
         }
@@ -159,7 +159,7 @@ public class CommandLineClient implements GameSettings {
     }
 
 
-    /* Metode der checker om String indeholder en interger */
+    /* Metode der checker om String indeholder en integer */
     private boolean isNum(String commandValue) {
         if (commandValue == null) {
             return false;
@@ -171,4 +171,11 @@ public class CommandLineClient implements GameSettings {
         }
         return true;
     }
+
+
+    /* Statisk metode af System.in Scanner */
+    public static Scanner scan() {
+        return scanner;
+    }
+
 }
