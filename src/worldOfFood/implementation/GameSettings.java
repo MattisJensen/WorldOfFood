@@ -10,7 +10,7 @@ public interface GameSettings {
         final double P_MAX_FOODPOINTS = 100;
         final double P_START_FOODPOINTS = 50;
         final double P_START_CLIMATEPOINTS = 0;
-        final double P_MOVEENERGY = 5;
+        final double P_MOVEENERGY = 10;
 
 
     /* Inventory */

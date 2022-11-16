@@ -5,15 +5,7 @@
  */
 package worldOfFood.textUI;
 
-/**
- * @author ancla
- */
 public class WorldOfFoodApplication {
-
-    /**
-     * @param args the command line arguments
-     */
-
     public static void main(String[] args) {
         CommandLineClient client = new CommandLineClient();
         client.play();
