@@ -18,12 +18,11 @@ public class Inventory implements GameSettings {
     public void removeItem(Item item) {
         for (Item i : items) { // sådan sikrer vi at der fjernes et item med samme navn, selv om selve objektet ikke er den samme
             if (i.getName().equalsIgnoreCase(item.getName())) {
-                removeItem(i);
+                items.remove(i);
                 return; // "return" i stedet for "break", da return 'stopper' metoden med det samme
             }
         }
     }
-
 
     /* retunering af inventar som liste eller String */
     public ArrayList<Item> getItems() {
