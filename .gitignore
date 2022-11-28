@@ -2,6 +2,13 @@
 out
 .idea
 **/**/*.iml
+*.ipr
+
+# maven & javaFX
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
 # CMake
 cmake-build-*/
