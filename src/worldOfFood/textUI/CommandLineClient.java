@@ -104,7 +104,7 @@ public class CommandLineClient implements GameSettings {
 
                 for (Item i : person.getInventory().getItems()) {
                     if (command.getCommandValue().equalsIgnoreCase(i.getName()) && i instanceof Food) { // checker hvert item i inventaret indtil der er et, som matcher det indtastede item, remover det og stopper med at checke de resterende items
-                        person.getInventory().getItems().remove(i);
+                        person.getInventory().removeItem(i);
                         person.addFoodPoints(((Food) i).getFoodPoints());
                         person.addClimatePoints(((Food) i).getClimatePoints());
                         System.out.println("Mmmmm... yummmy a " + command.getCommandValue());
@@ -112,7 +112,7 @@ public class CommandLineClient implements GameSettings {
                     }
                 }
 
-                if (c == person.getInventory().getItems().size()) { // hvis der ikke blev fjernet et item fra inventaret, så er c stadig så stor som inventaret og der blev ikke fundet det søgte item
+                if (c == person.getInventory().getItems().size()) { // hvis der ikke blev fjernet et item fra inventaret, så er c stadig så stor som inventaret fœr og der blev ikke fundet det søgte item
                     System.out.println("You don't have " + command.getCommandValue() + " to eat in your inventory.");
                 }
 

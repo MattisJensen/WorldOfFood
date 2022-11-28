@@ -93,7 +93,7 @@ public class Person implements GameSettings {
     /* Tilføje, fjerne og get climatepoints */
     public void addClimatePoints(double points) {
         climatePoints += points;
-    }
+    } // i tilfældet af, at der bliver sendt negative climate points i den metode, vil de også trækkes fra, da minus gange plus = minus
 
     public void removeClimatePoints(double points) {
         climatePoints -= points;
