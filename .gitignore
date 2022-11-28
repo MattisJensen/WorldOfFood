@@ -9,12 +9,6 @@ out
 **/**/*.iml
 *.ipr
 
-# maven & javaFX
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
 # CMake
 cmake-build-*/
 
@@ -32,6 +26,12 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+# maven & javaFX
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
 
 # ------------------ #
