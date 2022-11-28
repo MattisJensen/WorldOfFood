@@ -1,6 +1,8 @@
-package worldOfFood.implementation;
+package layer.domain.person;
 
-import worldOfFood.textUI.CommandLineClient;
+import layer.domain.game.GameOver;
+import layer.domain.game.GameSettings;
+import layer.presentation.CommandLineClient;
 
 import java.util.Scanner;
 

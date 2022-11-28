@@ -1,6 +1,4 @@
-package worldOfFood.implementation;
-
-import worldOfFood.textUI.CommandLineClient;
+package layer.domain.game;
 
 public class GameOver {
     public static void endGame(double climatePoints) {  // static for at der ikke behøves at oprettes et GameOver objekt for at kunne udføre metoden

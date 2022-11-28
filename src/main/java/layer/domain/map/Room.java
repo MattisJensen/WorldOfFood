@@ -1,10 +1,9 @@
-package worldOfFood;
+package layer.domain.map;
 
-import worldOfFood.implementation.FoodContainer;
-import worldOfFood.implementation.GameSettings;
+import layer.domain.game.GameSettings;
 
-import java.util.Set;
 import java.util.HashMap;
+import java.util.Set;
 
 public class Room implements GameSettings {
 

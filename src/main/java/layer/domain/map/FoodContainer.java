@@ -1,4 +1,7 @@
-package worldOfFood.implementation;
+package layer.domain.map;
+
+import layer.domain.item.Item;
+import layer.domain.item.Food;
 
 public class FoodContainer {
 

@@ -1,6 +1,8 @@
-package worldOfFood.implementation;
+package layer.domain.map;
 
-import worldOfFood.Room;
+import layer.domain.game.GameSettings;
+import layer.domain.item.Item;
+import layer.domain.item.Food;
 
 import java.util.ArrayList;
 import java.util.Random;

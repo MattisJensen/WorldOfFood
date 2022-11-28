@@ -1,4 +1,4 @@
-package worldOfFood.implementation;
+package layer.domain.game;
 
 public interface GameSettings {
 
