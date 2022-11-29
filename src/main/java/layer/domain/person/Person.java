@@ -2,6 +2,8 @@ package layer.domain.person;
 
 import layer.domain.game.GameOver;
 import layer.domain.game.GameSettings;
+import layer.domain.item.Food;
+import layer.domain.item.Item;
 import layer.presentation.CommandLineClient;
 
 import java.util.Scanner;
@@ -106,8 +108,28 @@ public class Person implements GameSettings {
     }
 
 
-    /* Skal udføres hver gang spilleren bevæger sig (fra rum til rum) */
+    /* Ting som udføres, hver gang spilleren bevæger sig (fra rum til rum) */
     public void move() {
         removeFoodPoints(P_MOVEENERGY);
     }
+
+    public void eat(String food) {
+        int invSize = getInventory().getItems().size(); // sætter c til den aktuelle størrelse af inventory
+
+        for (Item i : getInventory().getItems()) {
+            if (food.equalsIgnoreCase(i.getName()) && i instanceof Food) { // checker hvert item i inventaret indtil der er et, som matcher det indtastede item, remover det og stopper med at checke de resterende items
+                getInventory().removeItem(i);
+                addFoodPoints(((Food) i).getFoodPoints());
+                addClimatePoints(((Food) i).getClimatePoints());
+                System.out.println("Mmmmm... yummmy a " + food);
+                return;
+            }
+        }
+
+        if (invSize == getInventory().getItems().size()) { // hvis der ikke blev fjernet et item fra inventaret, så er c stadig så stor som inventaret før og der blev ikke fundet det søgte item
+            System.out.println("You don't have " + food + " to eat in your inventory.");
+        }
+
+    }
+
 }

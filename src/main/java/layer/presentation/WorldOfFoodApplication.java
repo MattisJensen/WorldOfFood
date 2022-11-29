@@ -5,9 +5,12 @@
  */
 package layer.presentation;
 
+import layer.domain.GameAPI;
+
 public class WorldOfFoodApplication {
     public static void main(String[] args) {
         CommandLineClient client = new CommandLineClient();
         client.play();
+
     }
 }

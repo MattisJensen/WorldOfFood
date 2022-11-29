@@ -1,6 +1,7 @@
 package layer.domain.person;
 
 import layer.domain.game.GameSettings;
+import layer.domain.item.Food;
 import layer.domain.item.Item;
 
 import java.util.ArrayList;
@@ -10,11 +11,13 @@ public class Inventory implements GameSettings {
     private ArrayList<Item> items = new ArrayList<Item>();
 
     /* add og remove item fra inventaret */
-    public void addItem(Item item) {
-        if (items.size() <= INVENTORY_SIZE) {
-            items.add(item);
+    public void addFoodItem(Food foodItem, int amount) {
+        if (items.size() + amount <= INVENTORY_SIZE) {
+            for (int i = 0; i < amount; i++) {
+                items.add(new Food(foodItem.getName(), foodItem.getFoodPoints(), foodItem.getClimatePoints()));
+            }
         } else {
-            System.out.println("Your inventory is already full. It has room for " + INVENTORY_SIZE + " items.");
+            System.out.println("Your inventory is to small. It has room for " + INVENTORY_SIZE + " items, but you are trying to add " + amount + " items.");
         }
     }
 
@@ -35,7 +38,7 @@ public class Inventory implements GameSettings {
     public void printInventory() {
         System.out.print("Your inventory contains the following items: ");
         for (Item i : items) {
-            System.out.print(i.getName()+", ");
+            System.out.print(i.getName() + ", ");
         }
         System.out.println();
     }

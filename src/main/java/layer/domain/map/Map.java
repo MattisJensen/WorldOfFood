@@ -50,7 +50,7 @@ public class Map implements GameSettings {
                     fc = new FoodContainer(LAKE, new Food(DUCK, DUCK_FOODPOINTS, DUCK_CLIMATEPOINTS), random.nextInt(DUCK_MAX - DUCK_MIN) + DUCK_MIN);
 
                 } else {
-                    fc = new FoodContainer(EMPTY, new Item(EMPTY), 0);
+                    fc = new FoodContainer(EMPTY, new Food(EMPTY,0,0), 0);
                 }
 
                 /* tilføjer rum til mappet */
