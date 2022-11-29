@@ -1,10 +1,9 @@
-package worldOfFood;
+package layer.domain.map;
 
-import worldOfFood.implementation.FoodContainer;
-import worldOfFood.implementation.GameSettings;
+import layer.domain.game.GameSettings;
 
-import java.util.Set;
 import java.util.HashMap;
+import java.util.Set;
 
 public class Room implements GameSettings {
 
@@ -27,7 +26,7 @@ public class Room implements GameSettings {
     }
 
     public String getLongDescription() {
-        return "You are " + description + " at a " + fc.getName() + (fc.getFoodType() != EMPTY ? (" with " + fc.getFoodAmount() + " " + fc.getFoodType()) : "") + ".\n" + getExitString();
+        return "You are " + description + " at a " + fc.getName() + (fc.getFoodType().getName() != EMPTY ? (" with " + fc.getFoodAmount() + " " + fc.getFoodType()) : "") + ".\n" + getExitString();
     }
 
     private String getExitString() {

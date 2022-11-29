@@ -1,4 +1,10 @@
-package worldOfFood.implementation;
+package layer.domain.person;
+
+import layer.domain.game.GameOver;
+import layer.domain.game.GameSettings;
+import layer.domain.item.Food;
+import layer.domain.item.Item;
+import layer.presentation.CommandLineClient;
 
 import java.util.Scanner;
 
@@ -12,7 +18,7 @@ public class Person implements GameSettings {
     /* Constructor af Person klassen */
     public Person() {
         inv = new Inventory();
-//        setNameFromInput();
+        setNameFromInput();
     }
 
     /* Inventory af personen */
@@ -32,7 +38,7 @@ public class Person implements GameSettings {
 
     /* Setter til navn ud fra konsolinput - metoden kan skelne mellem omdøbning og først navngivning */
     public void setNameFromInput() {
-        Scanner scan = new Scanner(System.in); // tager input fra konsolen
+        Scanner scan = CommandLineClient.scan(); // tager input fra konsolen
 
         /* denne blok udføres kun ved omdøbning */
         if (name != null) { // hvis name ikke er 'null', blev der allerede oprettet et navn og koden i blokken udføres
@@ -49,16 +55,15 @@ public class Person implements GameSettings {
 
         /* denne blok udføres altid (medmindre man svarede 'no' før */
         System.out.println("Please enter a new username: ");
-        name = scan.next().trim();
+        name = scan.nextLine().trim();
 
         if (name.trim().isEmpty()) {  // string -> trim() fjerner mellemrum af string -> is empty kigger om string er tom
-            System.out.print("This is not a username.");
+            System.out.println("This is not a username.");
             name = null;    // for at være sikker på, at der ikke spørges (igen) efter om man vil omdøbe sig
             setNameFromInput();
         } else {
             System.out.println("Your username is now '" + name + "'");
         }
-//        scan.close();
     }
 
 
@@ -92,7 +97,7 @@ public class Person implements GameSettings {
     /* Tilføje, fjerne og get climatepoints */
     public void addClimatePoints(double points) {
         climatePoints += points;
-    }
+    } // i tilfældet af, at der bliver sendt negative climate points i den metode, vil de også trækkes fra, da minus gange plus = minus
 
     public void removeClimatePoints(double points) {
         climatePoints -= points;
@@ -103,8 +108,28 @@ public class Person implements GameSettings {
     }
 
 
-    /* Skal udføres hver gang spilleren bevæger sig (fra rum til rum) */
+    /* Ting som udføres, hver gang spilleren bevæger sig (fra rum til rum) */
     public void move() {
         removeFoodPoints(P_MOVEENERGY);
     }
+
+    public void eat(String food) {
+        int invSize = getInventory().getItems().size(); // sætter c til den aktuelle størrelse af inventory
+
+        for (Item i : getInventory().getItems()) {
+            if (food.equalsIgnoreCase(i.getName()) && i instanceof Food) { // checker hvert item i inventaret indtil der er et, som matcher det indtastede item, remover det og stopper med at checke de resterende items
+                getInventory().removeItem(i);
+                addFoodPoints(((Food) i).getFoodPoints());
+                addClimatePoints(((Food) i).getClimatePoints());
+                System.out.println("Mmmmm... yummmy a " + food);
+                return;
+            }
+        }
+
+        if (invSize == getInventory().getItems().size()) { // hvis der ikke blev fjernet et item fra inventaret, så er c stadig så stor som inventaret før og der blev ikke fundet det søgte item
+            System.out.println("You don't have " + food + " to eat in your inventory.");
+        }
+
+    }
+
 }
