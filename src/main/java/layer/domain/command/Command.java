@@ -1,5 +1,5 @@
 
-package worldOfFood;
+package layer.domain.command;
 
 public interface Command {
 
