@@ -1,7 +1,11 @@
-package worldOfFood;
+package layer.domain.game;
 
-import worldOfFood.implementation.GameSettings;
-import worldOfFood.implementation.Map;
+import layer.domain.command.Command;
+import layer.domain.command.CommandImplementation;
+import layer.domain.command.CommandWords;
+import layer.domain.command.CommandWordsImplementation;
+import layer.domain.map.Map;
+import layer.domain.map.Room;
 
 import java.util.List;
 

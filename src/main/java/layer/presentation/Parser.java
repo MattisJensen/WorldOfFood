@@ -1,9 +1,9 @@
-package worldOfFood.textUI;
+package layer.presentation;
+
+import layer.domain.command.Command;
+import layer.domain.game.Game;
 
 import java.util.Scanner;
-
-import worldOfFood.Command;
-import worldOfFood.Game;
 
 public class Parser {
     private final Game game;
