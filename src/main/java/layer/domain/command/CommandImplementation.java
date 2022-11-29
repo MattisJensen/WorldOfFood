@@ -17,7 +17,7 @@
  * @version 2006.03.30
  */
 
-package worldOfFood;
+package layer.domain.command;
 
 public class CommandImplementation implements Command {
     private final Commands commandName;
