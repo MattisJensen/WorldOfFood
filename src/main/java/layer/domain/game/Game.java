@@ -11,6 +11,7 @@ import java.util.List;
 
 public class Game implements GameSettings {
 
+    private Map map;
     private Room currentRoom;
     private CommandWords commands;
 
@@ -20,7 +21,7 @@ public class Game implements GameSettings {
     }
 
     private void createRooms() {
-        Map map = new Map(xMapSize, yMapSize);
+        map = new Map(xMapSize, yMapSize);
         currentRoom = map.getMiddleRoom();
     }
 
@@ -70,5 +71,9 @@ public class Game implements GameSettings {
 
     public Room getCurrentRoom() {
         return currentRoom;
+    }
+
+    public Map getMap() {
+        return map;
     }
 }

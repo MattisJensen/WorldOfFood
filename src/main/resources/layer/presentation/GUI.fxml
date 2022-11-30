@@ -16,81 +16,116 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layer.presentation.GUIController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1680.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layer.presentation.GUIController">
    <children>
-      <HBox layoutY="-1.0" prefHeight="1000.0" prefWidth="1920.0">
+      <HBox layoutY="-1.0" prefHeight="1000.0" prefWidth="1797.0">
          <children>
             <VBox prefHeight="1000.0">
                <children>
-                  <ListView fx:id="listViewInv" prefHeight="904.0" prefWidth="366.0" />
-                  <Button fx:id="eatButtom" mnemonicParsing="false" prefHeight="25.0" prefWidth="361.0" text="Spis" />
+                  <Text fx:id="invTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="dit inventar" textAlignment="CENTER" wrappingWidth="318.43646240234375">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <ListView fx:id="invList" focusTraversable="false" prefHeight="878.0" prefWidth="278.0">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin></ListView>
+                  <Button fx:id="eatButton" alignment="CENTER" focusTraversable="false" mnemonicParsing="false" onAction="#eatButton" prefHeight="47.0" prefWidth="299.0" text="spis">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin></Button>
                </children>
             </VBox>
-            <GridPane fx:id="gridPane" alignment="CENTER" gridLinesVisible="true" prefHeight="1000.0" prefWidth="1000.0">
+            <GridPane fx:id="mapGrid" gridLinesVisible="true" prefHeight="1000.0" prefWidth="1000.0">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="100.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints maxHeight="87.39947509765625" minHeight="10.0" prefHeight="77.89881896972656" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="111.10118103027344" minHeight="10.0" prefHeight="111.10118103027344" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="110.94338989257812" minHeight="10.0" prefHeight="101.64779663085938" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="99.32391357421875" minHeight="10.0" prefHeight="92.35220336914062" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="112.0" minHeight="10.0" prefHeight="112.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <VBox prefHeight="1000.0" prefWidth="555.0">
+            <VBox prefHeight="1000.0" prefWidth="319.0">
                <children>
-                  <TextArea fx:id="textArea" prefHeight="483.0" prefWidth="513.0" />
-                  <TextField fx:id="textField" prefHeight="47.0" prefWidth="381.0" />
-                  <Button fx:id="collectButtom" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="25.0" prefWidth="393.0" text="Saml Op">
+                  <TextArea fx:id="outputText" editable="false" focusTraversable="false" prefHeight="436.0" prefWidth="28.0" wrapText="true">
                      <VBox.margin>
-                        <Insets left="70.0" top="10.0" />
+                        <Insets left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="15.0" />
+                     </font></TextArea>
+                  <TextField fx:id="inputText" focusTraversable="false" prefHeight="47.0" prefWidth="319.0" promptText="her kan du skrive...">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin></TextField>
+                  <Button fx:id="collectButton" alignment="CENTER" contentDisplay="RIGHT" focusTraversable="false" mnemonicParsing="false" onAction="#enterButton" prefHeight="30.0" prefWidth="158.0" text="saml op">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="20.0" />
+                     </font>
                   </Button>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="331.0" stroke="TRANSPARENT" strokeType="INSIDE" width="200.0" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mad Point" wrappingWidth="176.6724853515625">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="285.0" stroke="TRANSPARENT" strokeType="INSIDE" width="360.0" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="dine klima point" wrappingWidth="176.6724853515625">
                      <font>
                         <Font size="20.0" />
                      </font>
                      <VBox.margin>
-                        <Insets left="50.0" />
+                        <Insets left="10.0" />
                      </VBox.margin>
                   </Text>
-                  <ProgressBar fx:id="foodBar" prefHeight="28.0" prefWidth="294.0" progress="0.0">
+                  <Text fx:id="score" strokeType="OUTSIDE" strokeWidth="0.0" text="0" wrappingWidth="275.4189453125">
+                     <font>
+                        <Font size="39.0" />
+                     </font>
                      <VBox.margin>
-                        <Insets left="50.0" />
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="dit mad energi niveau" wrappingWidth="242.144287109375">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="20.0" />
+                     </VBox.margin>
+                  </Text>
+                  <ProgressBar fx:id="foodBar" prefHeight="28.0" prefWidth="275.0" progress="0.0">
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
                      </VBox.margin>
                   </ProgressBar>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Klima Point" wrappingWidth="176.6724853515625">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="50.0" top="20.0" />
-                     </VBox.margin>
-                  </Text>
-                  <Text fx:id="scoreKlima" strokeType="OUTSIDE" strokeWidth="0.0" text="2134" wrappingWidth="465.492431640625">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets left="50.0" />
-                     </VBox.margin>
-                  </Text>
                </children>
             </VBox>
          </children>

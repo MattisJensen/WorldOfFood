@@ -11,11 +11,16 @@ public class Map implements GameSettings {
 
     private int xSize;
     private int ySize;
-    private ArrayList<ArrayList<Room>> map = new ArrayList<>();
+    private ArrayList<ArrayList<Room>> map;
 
     public Map(int x, int y) { // x * y map size fx 9*9
+
+        map = new ArrayList<>();
+
+        xSize = x;
+        ySize = y;
+
         Random random = new Random();
-        setXY(x, y);
 
         /* danner rum */
         for (int i = 0; i < x; i++) {
@@ -50,7 +55,7 @@ public class Map implements GameSettings {
                     fc = new FoodContainer(LAKE, new Food(DUCK, DUCK_FOODPOINTS, DUCK_CLIMATEPOINTS), random.nextInt(DUCK_MAX - DUCK_MIN) + DUCK_MIN);
 
                 } else {
-                    fc = new FoodContainer(EMPTY, new Food(EMPTY,0,0), 0);
+                    fc = new FoodContainer(EMPTY, new Food(EMPTY, 0, 0), 0);
                 }
 
                 /* tilføjer rum til mappet */
@@ -96,11 +101,6 @@ public class Map implements GameSettings {
         }
     }
 
-    private void setXY(int x, int y) {
-        xSize = x;
-        ySize = y;
-    }
-
     private boolean isUnder(int i, int upper) {
         return i < upper;
     }
@@ -109,6 +109,26 @@ public class Map implements GameSettings {
     public ArrayList<ArrayList<Room>> getMap() {
         return map;
     }
+
+    public ArrayList<ArrayList<String>> getMapFoodFields() {
+
+        ArrayList<ArrayList<String>> stringMap = new ArrayList<>();
+
+        for (int i = 0; i < map.size(); i++) {
+
+            stringMap.add(new ArrayList<String>());
+
+            for (int j = 0; j < map.get(i).size(); j++) {
+
+                String foodType = map.get(i).get(j).getFoodContainer().getFoodType().getName();
+
+                stringMap.get(i).add(foodType);
+            }
+        }
+
+        return stringMap;
+    }
+
 
     public Room getMiddleRoom() {
         return getMap().get(xSize / 2).get(ySize / 2);

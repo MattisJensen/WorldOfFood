@@ -3,8 +3,8 @@ package layer.domain.game;
 public interface GameSettings {
 
     /* Map Dimensions */
-        final int xMapSize = 15;
-        final int yMapSize = 15;
+        final int xMapSize = 10;
+        final int yMapSize = 10;
 
     /* Person */
         final double P_MAX_FOODPOINTS = 100;

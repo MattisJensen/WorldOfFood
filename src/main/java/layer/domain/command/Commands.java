@@ -1,7 +1,7 @@
 package layer.domain.command;
 
 public enum Commands {
-    GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), INVENTORY("inv"), EAT("eat"), COLLECT("collect"), STATS("stats");
+    GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), COLLECT("collect");
 
     private String commandName;
 

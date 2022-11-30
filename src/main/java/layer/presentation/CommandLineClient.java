@@ -22,9 +22,8 @@ public class CommandLineClient {
     private static boolean finished;
 
     public CommandLineClient() {
-        person = new Person();
-        game = new Game();
-        parser = new Parser(game);
+
+//        parser = new Parser(game);
     }
 
     public void play() {
@@ -36,6 +35,7 @@ public class CommandLineClient {
         }
         System.out.println("Thank you for playing. Good bye.");
     }
+
 
     public static void setFinished(boolean b) {
         finished = b;
@@ -94,22 +94,8 @@ public class CommandLineClient {
                 System.out.println("Quit what?");
             }
 
-            /* Print Inventory command */
-        } else if (commandWord == Commands.INVENTORY) {
-            person.getInventory().printInventory();
-
-            /* Eat command */
-        } else if (commandWord == Commands.EAT) {
-            if (command.hasCommandValue()) { // checker om der blevet skrevet, hvad der skal spises
-                person.eat(command.getCommandValue());
-
-            } else {
-                System.out.println("You forgot to say what you want to eat from your inventory.");
-                System.out.println("Try again!");
-            }
-
-            /* Collect item command */
-        } else if (commandWord == Commands.COLLECT) {
+            /* Collect command */
+        }  else if (commandWord == Commands.COLLECT) {
 
             if (isNum(command.getCommandValue())) { //checker om string indholdet indeholder en integer
                 int amount = Integer.parseInt(command.getCommandValue()); // converts the amount given as string to an int

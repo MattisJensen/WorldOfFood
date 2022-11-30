@@ -121,7 +121,6 @@ public class Person implements GameSettings {
                 getInventory().removeItem(i);
                 addFoodPoints(((Food) i).getFoodPoints());
                 addClimatePoints(((Food) i).getClimatePoints());
-                System.out.println("Mmmmm... yummmy a " + food);
                 return;
             }
         }
