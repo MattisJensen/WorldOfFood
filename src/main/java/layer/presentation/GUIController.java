@@ -103,6 +103,8 @@ public class GUIController implements Initializable {
 
     private ImageView person;
 
+    private String leftRight;
+
     /* Intro related variables */
     private boolean step1;
     private boolean step2;
@@ -138,6 +140,7 @@ public class GUIController implements Initializable {
         score.setText("0");
         inputText.setText("");
         inputText.setPromptText("her kan du skrive...");
+        leftRight = "Left";
 
 
         setMapGUI();
@@ -280,7 +283,7 @@ public class GUIController implements Initializable {
                     currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/pearTree.jpg"));
 
                 } else if (currentFoodField.equalsIgnoreCase(api.CARROT)) {
-                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/carrotFeld.jpg"));
+                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/carrotField.jpg"));
 
                 } else if (currentFoodField.equalsIgnoreCase(api.POTATO)) {
                     currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/potatoField.jpg"));
@@ -443,15 +446,23 @@ public class GUIController implements Initializable {
     }
 
     public void setPersonDirection(String direction) {
+
+        //switches left and right everytime this method is called
+        if (leftRight.equalsIgnoreCase("Right")) {
+            leftRight = "Left";
+        } else {
+            leftRight = "Right";
+        }
+
         switch (direction) {
             case "UP", "W" ->
-                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/Splash X 01.png"));
+                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person" + leftRight + "3.png"));
             case "DOWN", "S" ->
-                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/Splash X 01.png"));
+                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person" + leftRight + "1.png"));
             case "LEFT", "A" ->
-                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/Splash X 01.png"));
+                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person" + leftRight + "2.png"));
             case "RIGHT", "D" ->
-                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/Splash X 01.png"));
+                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person" + leftRight + "4.png"));
         }
     }
 
