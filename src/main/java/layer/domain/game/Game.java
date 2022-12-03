@@ -1,39 +1,24 @@
 package layer.domain.game;
 
-import layer.domain.command.Command;
-import layer.domain.command.CommandImplementation;
-import layer.domain.command.CommandWords;
-import layer.domain.command.CommandWordsImplementation;
+import layer.interfaces.GameSettings;
 import layer.domain.map.Map;
 import layer.domain.map.Room;
-
-import java.util.List;
 
 public class Game implements GameSettings {
 
     private Map map;
     private Room currentRoom;
-    private CommandWords commands;
 
     public Game() {
-        createRooms();
-        commands = new CommandWordsImplementation();
+        createMap();
     }
 
-    private void createRooms() {
-        map = new Map(xMapSize, yMapSize);
+    private void createMap() {
+        map = new Map(XMAP_SIZE, YMAP_SIZE);
         currentRoom = map.getMiddleRoom();
     }
 
-    public boolean goRoom(Command command) {
-
-        if (!command.hasCommandValue()) {
-            //No direction on command.
-            //Can't continue with GO command.
-            return false;
-        }
-
-        String direction = command.getCommandValue();
+    public boolean goRoom(String direction) {
 
         Room nextRoom = currentRoom.getExit(direction);
 
@@ -43,30 +28,6 @@ public class Game implements GameSettings {
             currentRoom = nextRoom;
             return true;
         }
-    }
-
-    public boolean quit(Command command) {
-        if (command.hasCommandValue()) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-    public String getRoomDescription() {
-        return currentRoom.getLongDescription();
-    }
-
-    public CommandWords getCommands() {
-        return commands;
-    }
-
-    public List<String> getCommandDescriptions() {
-        return commands.getCommandWords();
-    }
-
-    public Command getCommand(String word1, String word2) {
-        return new CommandImplementation(commands.getCommand(word1), word2);
     }
 
     public Room getCurrentRoom() {

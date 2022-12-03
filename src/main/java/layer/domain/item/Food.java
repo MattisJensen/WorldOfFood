@@ -1,6 +1,6 @@
 package layer.domain.item;
 
-import layer.domain.game.GameSettings;
+import layer.interfaces.GameSettings;
 
 public class Food extends Item implements GameSettings {
 

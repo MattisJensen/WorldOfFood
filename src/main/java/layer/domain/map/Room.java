@@ -1,50 +1,45 @@
 package layer.domain.map;
 
-import layer.domain.game.GameSettings;
+import layer.interfaces.GameSettings;
 
 import java.util.HashMap;
-import java.util.Set;
 
 public class Room implements GameSettings {
 
     private String description;
-    private HashMap<String, Room> exits;
-    private FoodContainer fc;
+    private final HashMap<String, Room> exits;
+    private final FoodContainer fc;
+    private final int[] coordinates;
 
-    public Room(String description, FoodContainer fc) {
-        this.description = description;
+    public Room(int x, int y, FoodContainer fc) {
         exits = new HashMap<String, Room>();
+        coordinates = new int[]{x, y};
         this.fc = fc;
+    }
+
+    public int[] getCoordinates() {
+        return coordinates;
     }
 
     public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
 
+    public Room getExit(String direction) {
+        return exits.get(direction);
+    }
+
     public String getShortDescription() {
-        return description;
+        return coordinates[0] + "." + coordinates[1];
     }
 
     public String getLongDescription() {
-        return "You are " + description + " at a " + fc.getName() + (fc.getFoodType().getName() != EMPTY ? (" with " + fc.getFoodAmount() + " " + fc.getFoodType()) : "") + ".\n" + getExitString();
-    }
-
-    private String getExitString() {
-        String returnString = "Exits:";
-        Set<String> keys = exits.keySet();
-        for (String exit : keys) {
-            returnString += " " + exit;
-        }
-        return returnString;
+        return "Du er ved " + fc.getName() + ", hvor der er " + fc.getFoodAmount() + " " + fc.getGrammaticalNumber() + ".";
     }
 
     public FoodContainer getFoodContainer() {
         return fc;
     }
 
-
-    public Room getExit(String direction) {
-        return exits.get(direction);
-    }
 }
 

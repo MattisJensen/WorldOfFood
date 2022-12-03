@@ -1,7 +1,6 @@
 package layer.domain.map;
 
-import layer.domain.game.GameSettings;
-import layer.domain.item.Item;
+import layer.interfaces.GameSettings;
 import layer.domain.item.Food;
 
 import java.util.ArrayList;
@@ -33,25 +32,25 @@ public class Map implements GameSettings {
 
                 int num = random.nextInt(99) + 1;
 
-                if (isUnder(num, APPLE_SPAWNCHANCE)) { // isUnder checker om det tilfældige nummer er under det følgende nummer - ingen switch, da man i en switch ikke kan indstille en range numre
+                if (num < APPLE_SPAWNCHANCE) { // isUnder checker om det tilfældige nummer er under det følgende nummer - ingen switch, da man i en switch ikke kan indstille en range numre
                     fc = new FoodContainer(TREE, new Food(APPLE, APPLE_FOODPOINTS, APPLE_CLIMATEPOINTS), random.nextInt(APPLE_MAX - APPLE_MIN) + APPLE_MIN);
 
-                } else if (isUnder(num, APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE)) {
+                } else if (num < APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE) {
                     fc = new FoodContainer(TREE, new Food(PEAR, PEAR_FOODPOINTS, PEAR_CLIMATEPOINTS), random.nextInt(PEAR_MAX - PEAR_MIN) + PEAR_MIN);
 
-                } else if (isUnder(num, APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE)) {
+                } else if (num < APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE) {
                     fc = new FoodContainer(FIELD, new Food(CARROT, CARROT_FOODPOINTS, CARROT_CLIMATEPOINTS), random.nextInt(CARROT_MAX - CARROT_MIN) + CARROT_MIN);
 
-                } else if (isUnder(num, APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE + POTATO_SPAWNCHANCE)) {
+                } else if (num < APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE + POTATO_SPAWNCHANCE) {
                     fc = new FoodContainer(FIELD, new Food(POTATO, POTATO_FOODPOINTS, POTATO_CLIMATEPOINTS), random.nextInt(POTATO_MAX - POTATO_MIN) + POTATO_MIN);
 
-                } else if (isUnder(num, APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE + POTATO_SPAWNCHANCE + COW_SPAWNCHANCE)) {
+                } else if (num < APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE + POTATO_SPAWNCHANCE + COW_SPAWNCHANCE) {
                     fc = new FoodContainer(FIELD, new Food(COW, COW_FOODPOINTS, COW_CLIMATEPOINTS), random.nextInt(COW_MAX - COW_MIN) + COW_MIN);
 
-                } else if (isUnder(num, APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE + POTATO_SPAWNCHANCE + COW_SPAWNCHANCE + FISH_SPAWNCHANCE)) {
+                } else if (num < APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE + POTATO_SPAWNCHANCE + COW_SPAWNCHANCE + FISH_SPAWNCHANCE) {
                     fc = new FoodContainer(LAKE, new Food(FISH, FISH_FOODPOINTS, FISH_CLIMATEPOINTS), random.nextInt(FISH_MAX - FISH_MIN) + FISH_MIN);
 
-                } else if (isUnder(num, APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE + POTATO_SPAWNCHANCE + COW_SPAWNCHANCE + FISH_SPAWNCHANCE + DUCK_SPAWNCHANCE)) {
+                } else if (num < APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE + POTATO_SPAWNCHANCE + COW_SPAWNCHANCE + FISH_SPAWNCHANCE + DUCK_SPAWNCHANCE) {
                     fc = new FoodContainer(LAKE, new Food(DUCK, DUCK_FOODPOINTS, DUCK_CLIMATEPOINTS), random.nextInt(DUCK_MAX - DUCK_MIN) + DUCK_MIN);
 
                 } else {
@@ -59,7 +58,7 @@ public class Map implements GameSettings {
                 }
 
                 /* tilføjer rum til mappet */
-                map.get(i).add(j, new Room(i + "." + j, fc)); // laver nyt rum på plads 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 1.0 1.1 1.2 ... 1.8 2.0 2.1 2.2 ... osv., hvor første nummer svarer til pladsen i første array og andet nummer svarer til pladsen i arrayet, som ligger på pladsen i det første nummer. På hver nyt første nummer, er der altså et andet array med størelsen givet ved y.
+                map.get(i).add(j, new Room(i, j, fc)); // laver nyt rum på plads 0.0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 1.0 1.1 1.2 ... 1.8 2.0 2.1 2.2 ... osv., hvor første nummer svarer til pladsen i første array og andet nummer svarer til pladsen i arrayet, som ligger på pladsen i det første nummer. På hver nyt første nummer, er der altså et andet array med størelsen givet ved y.
             }
         }
 
@@ -101,12 +100,7 @@ public class Map implements GameSettings {
         }
     }
 
-    private boolean isUnder(int i, int upper) {
-        return i < upper;
-    }
-
-
-    public ArrayList<ArrayList<Room>> getMap() {
+    public ArrayList<ArrayList<Room>> getMapList() {
         return map;
     }
 
@@ -131,7 +125,7 @@ public class Map implements GameSettings {
 
 
     public Room getMiddleRoom() {
-        return getMap().get(xSize / 2).get(ySize / 2);
+        return getMapList().get(xSize / 2).get(ySize / 2);
     }
 
 }

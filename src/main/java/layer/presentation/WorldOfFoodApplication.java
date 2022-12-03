@@ -5,12 +5,25 @@
  */
 package layer.presentation;
 
-import layer.domain.GameAPI;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class WorldOfFoodApplication {
+import java.io.IOException;
+
+public class WorldOfFoodApplication extends Application {
+
     public static void main(String[] args) {
-        CommandLineClient client = new CommandLineClient();
-        client.play();
+//        client.play();
+        launch();
+    }
 
+    @Override
+    public void start(Stage stage) throws IOException {
+        GameClient client = new GameClient();
+        Scene scene = client.getScene();
+        stage.setTitle("World of Food");
+        stage.setScene(scene);
+        stage.show();
     }
 }

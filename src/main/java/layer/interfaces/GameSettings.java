@@ -1,14 +1,17 @@
-package layer.domain.game;
+package layer.interfaces;
 
 public interface GameSettings {
 
     /* Map Dimensions */
-        final int xMapSize = 10;
-        final int yMapSize = 10;
+        final int XMAP_SIZE = 15;
+        final int YMAP_SIZE = 15;
+
+        final int FIELD_WIDTH = 140; //in pixels - height and width should have the same size
+        final int FIELD_HEIGHT = 140; //in pixels - height and width should have the same size
 
     /* Person */
         final double P_MAX_FOODPOINTS = 100;
-        final double P_START_FOODPOINTS = 50;
+        final double P_START_FOODPOINTS = 60;
         final double P_START_CLIMATEPOINTS = 0;
         final double P_MOVEENERGY = 10;
 
@@ -71,17 +74,34 @@ public interface GameSettings {
         final int FISH_SPAWNCHANCE = 7;
         final int DUCK_SPAWNCHANCE = 4;
 
-        /* Titles */
-        final String EMPTY = "path. Choose which way you want to go.";
-        final String TREE = "tree";
-        final String FIELD = "field";
-        final String LAKE = "lake";
+        /* Item titles */
+        final String APPLE = "Æble";
+        final String PEAR = "Pære";
+        final String CARROT = "Gulerod";
+        final String POTATO = "Kartoffel";
+        final String COW = "Steak";
+        final String FISH = "Fisk";
+        final String DUCK = "And";
 
-        final String APPLE = "apples";
-        final String PEAR = "pears";
-        final String CARROT = "carrots";
-        final String POTATO = "potatoes";
-        final String COW = "cows";
-        final String FISH = "fish";
-        final String DUCK = "ducks";
+        final String APPLES = "æbler";
+        final String PEARS = "pærer";
+        final String CARROTS = "gulerødder";
+        final String POTATOES = "kartofler";
+        final String COWS = "køer";
+        final String FISHS = "fisk";
+        final String DUCKS = "ænder";
+
+        /* Item titles with articles */
+        final String EMPTY = "";
+        final String TREE = "et træ";
+        final String FIELD = "en mark";
+        final String LAKE = "en sø";
+
+        final String APPLE_A = "et æble";
+        final String PEAR_A = "en pære";
+        final String CARROT_A = "en gulerod";
+        final String POTATO_A = "en kartoffel";
+        final String COW_A = "en ko";
+        final String FISH_A = "en fisk";
+        final String DUCK_A = "en and";
 }
