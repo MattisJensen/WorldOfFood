@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -101,15 +102,15 @@ public class GUIController implements Initializable {
 
     private ObservableList<String> items;
 
+    /* Person related variables */
     private ImageView person;
-
+    private HBox personCenter;
     private String leftRight;
 
     /* Intro related variables */
     private boolean step1;
     private boolean step2;
     private boolean step3;
-    private boolean nameCorretWaiting;
     private boolean nameCorrect;
     private boolean introFinished;
     private String inputTextString;
@@ -123,7 +124,6 @@ public class GUIController implements Initializable {
         step1 = false;
         step2 = false;
         step3 = false;
-        nameCorretWaiting = false;
         nameCorrect = false;
         introFinished = false;
         inputTextString = ""; //inputTextString bruges for at gemme inputtet i en String, da inputFeltet bliver resettet efter hver klik og vi således kan beholde inputtet i denne String
@@ -179,8 +179,6 @@ public class GUIController implements Initializable {
                 plusButton.setDisable(false);
                 plusButton.setText("Nej");
 
-                nameCorretWaiting = true;
-
                 if (nameCorrect) {
                     invTitle.setText("Inventar af " + name);
                     enterButton.setDisable(false);
@@ -222,8 +220,15 @@ public class GUIController implements Initializable {
 
             /* sætter personen på mappet */
             person = new ImageView();
-            person.setFitWidth(api.FIELD_WIDTH);
-            person.setFitHeight(api.FIELD_HEIGHT);
+            person.setFitWidth(api.PERSON_XY_SIZE);
+            person.setFitHeight(api.PERSON_XY_SIZE);
+
+            personCenter = new HBox();
+            personCenter.setAlignment(Pos.CENTER);
+            personCenter.prefWidth(api.XMAP_SIZE);
+            personCenter.prefHeight(api.YMAP_SIZE);
+            personCenter.getChildren().add(person);
+            
             movePerson("UP");
         }
     }
@@ -237,7 +242,6 @@ public class GUIController implements Initializable {
             inputTextString = ""; //derved skal der igen spørges efter navnet, da if statmentet er forkert fordi name bliver sat til ""
             api.setName("");
             nameCorrect = false;
-            nameCorretWaiting = false;
         }
         initIntro();
     }
@@ -249,7 +253,6 @@ public class GUIController implements Initializable {
         /* henter antal af felter fra domainlayer */
         int xMapSize = api.XMAP_SIZE;
         int yMapSize = api.YMAP_SIZE;
-
         /* fastlægge hvor stor i pixel et enkelt felte skal være */
         int xSingleGridSize = api.FIELD_WIDTH;
         int ySingleGridSize = api.FIELD_HEIGHT;
@@ -277,28 +280,28 @@ public class GUIController implements Initializable {
 
                 /* choosing the right picture, depending on fieldtype - java cant compile the following statements as a switch, but as if statements, because the switch has to be sure, that the api Strings are initialized, but the if statements not */
                 if (currentFoodField.equalsIgnoreCase(api.APPLE)) {
-                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/appleTree.jpg"));
+                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/fields/appleTree.jpg"));
 
                 } else if (currentFoodField.equalsIgnoreCase(api.PEAR)) {
-                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/pearTree.jpg"));
+                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/fields/pearTree.jpg"));
 
                 } else if (currentFoodField.equalsIgnoreCase(api.CARROT)) {
-                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/carrotField.jpg"));
+                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/fields/carrotField.jpg"));
 
                 } else if (currentFoodField.equalsIgnoreCase(api.POTATO)) {
-                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/potatoField.jpg"));
+                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/fields/potatoField.jpg"));
 
                 } else if (currentFoodField.equalsIgnoreCase(api.COW)) {
-                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/cowField.jpg"));
+                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/fields/cowField.jpg"));
 
                 } else if (currentFoodField.equalsIgnoreCase(api.DUCK)) {
-                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/duckLake.jpg"));
+                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/fields/duckLake.jpg"));
 
                 } else if (currentFoodField.equalsIgnoreCase(api.FISH)) {
-                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/fishLake.jpg"));
+                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/fields/fishLake.jpg"));
 
                 } else {
-                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/path.jpg"));
+                    currentIV.setImage(new Image("file:src/main/java/layer/presentation/pictures/fields/path.jpg"));
                 }
 
                 mapGrid.add(currentIV, i, j);
@@ -332,10 +335,14 @@ public class GUIController implements Initializable {
                 outputText.setText("Du har ikke nok plads i dit inventar til at tilføje yderligere " + amount + " items. Du kan maksimalt have " + api.INVENTORY_SIZE + " items med dig.");
 
             } else if (amount > api.getCurrentFoodAmount()) {
-                outputText.setText("Du kan ikke høste " + amount + " " + api.getCurrentGrammaticalNumber() + " op, fordi der ikke er nok.");
+                outputText.setText("Du kan ikke høste " + amount + " " + api.getCurrentGrammaticalNumber() + ", fordi der ikke er nok.");
 
             } else if (amount > 0) {
-                outputText.setText("Du har indsamlet " + amount + " " + api.getCurrentGrammaticalNumber() + "."); // teksten skal printes før item bliver fjernet, da hvis den først fjerner items, kan det være at det grammatiske ikke passer lœngere
+                if (amount == 1) { // teksten skal printes før item bliver fjernet, da hvis den først fjerner items, kan det være at det grammatiske ikke passer lœngere
+                    outputText.setText("Du har indsamlet " + api.getGrammaticalSingularArticle() + ".");
+                } else {
+                    outputText.setText("Du har indsamlet " + amount + " " + api.getCurrentGrammaticalNumber() + ".");
+                }
 
                 for (int i = 0; i < amount; i++) {
                     items.add(api.collectFoodItem());
@@ -427,15 +434,15 @@ public class GUIController implements Initializable {
     public void movePerson(String direction) {
         int[] coordinates = api.getCurrentPosition();
 
-        mapGrid.getChildren().remove(person);
-
+        mapGrid.getChildren().remove(personCenter); //remover personCenter HBox med centreret personbilledet fra gamle Room
         setPersonDirection(direction);
 
-        mapGrid.add(person, coordinates[0], coordinates[1]);
+        mapGrid.add(personCenter, coordinates[0], coordinates[1]); //sætter personCenter til personens current Room sted
+
 
         foodBar.setProgress(api.getFoodPoints() / api.P_MAX_FOODPOINTS > 0 ? api.getFoodPoints() / api.P_MAX_FOODPOINTS : 0);
 
-        gameOver();
+        gameOver(); //checker om der er game over
 
         if (api.hasCurrentFood() && api.getCurrentFoodAmount() > 0) {
             outputText.setText(api.getCurrentDescription() + "\n\nHvis du gerne vil høste " + api.getGrammaticalPlural() + ", så angiv bare antallet af, hvor mange du gerne vil have.");
@@ -456,13 +463,13 @@ public class GUIController implements Initializable {
 
         switch (direction) {
             case "UP", "W" ->
-                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person" + leftRight + "3.png"));
+                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person/person" + leftRight + "3.png"));
             case "DOWN", "S" ->
-                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person" + leftRight + "1.png"));
+                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person/person" + leftRight + "1.png"));
             case "LEFT", "A" ->
-                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person" + leftRight + "2.png"));
+                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person/person" + leftRight + "2.png"));
             case "RIGHT", "D" ->
-                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person" + leftRight + "4.png"));
+                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person/person" + leftRight + "4.png"));
         }
     }
 
