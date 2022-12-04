@@ -107,12 +107,13 @@ public class GUIController implements Initializable {
 
     private ObservableList<String> items;
 
-    private Timeline timeline;
+    ArrayList<ArrayList<ImageView>> fieldsImageContainer;
 
     /* Person related variables */
-    private ImageView person;
+    private ImageView personImageContainer;
     private HBox personCenter;
     private String leftRight;
+    private Timeline timeline;
 
     /* Intro related variables */
     private boolean step1;
@@ -203,7 +204,7 @@ public class GUIController implements Initializable {
             step2 = true;
             enterButton.setText("Videre");
 
-            outputText.setText("Du kan spise, hvad du vil. Dog vær opmærksom på, at ikke alt mad er lige godt for klimaet.\n\nDerudover får du forskelligt meget energi fra forskelligt mad.\n\nNår det er sagt, ønsker jeg dig rigtig god spiseløst!");
+            outputText.setText("Du kan spise, hvad du vil. Dog vær opmærksom på, at ikke alt mad er lige godt for klimaet.\n\nDerudover får du forskelligt meget energi fra forskelligt mad.\n\nHvis du er i gang med høste, pas på at du ikke overhøster markerne.\n\nNår det er sagt, ønsker jeg dig rigtig god spiseløst!");
         } else if (!step3) {
             step3 = true;
             enterButton.setText("Start");
@@ -214,29 +215,32 @@ public class GUIController implements Initializable {
             downButton.setVisible(true);
             leftButton.setVisible(true);
             rightButton.setVisible(true);
+            eatButton.setVisible(true);
             upButton.setDisable(true);
             downButton.setDisable(true);
             leftButton.setDisable(true);
             rightButton.setDisable(true);
+            eatButton.setDisable(true);
 
-            outputText.setText("Med W A S D eller de 4 knapper med pilene nedenunder kan du navigere gennem mappet og ved hjælp af dit trackpad kan du bevæge mappet.\n\nMed + og - tasten eller de to knapper til højre kan du vælge, hvor meget mad du gerne vil høste. \n\nMed tasten M eller Spis knappen kan du spise det mad, du har valgt i dit inventar. \n\nKlik på start så snart du er klar.");
+            outputText.setText("Med W A S D på dit keyboard eller ← ↓ ↑ → knapperne nedenunder kan du navigere gennem mappet og ved hjælp af dit trackpad kan du bevæge mappet.\n\nMed + og - på dit keyboard eller de to knapper til højre kan du vælge, hvor meget mad du gerne vil høste. \n\nMed M på dit keyboard eller Spis knappen til venstre kan du spise maden fra dit inventar.\n\nKlik på start så snart du er klar.");
         } else {
             enterButton.setText("Saml op");
             minusButton.setDisable(false);
             plusButton.setDisable(false);
+            eatButton.setDisable(false);
             introFinished = true;
             setGUIVisible(true);
 
             /* sætter personen på mappet */
-            person = new ImageView();
-            person.setFitWidth(api.P_XY_SIZE);
-            person.setFitHeight(api.P_XY_SIZE);
+            personImageContainer = new ImageView();
+            personImageContainer.setFitWidth(api.P_XY_SIZE);
+            personImageContainer.setFitHeight(api.P_XY_SIZE);
 
             personCenter = new HBox();
             personCenter.setAlignment(Pos.CENTER);
             personCenter.prefWidth(api.XMAP_SIZE);
             personCenter.prefHeight(api.YMAP_SIZE);
-            personCenter.getChildren().add(person);
+            personCenter.getChildren().add(personImageContainer);
 
             movePerson("UP");
 
@@ -283,15 +287,15 @@ public class GUIController implements Initializable {
         mapGrid.setPrefSize(xMapSize * xSingleGridSize, yMapSize * ySingleGridSize);
 
         /* opretter en 2D arraylist af den visuelle mapgrid på samme måde som fx Map constructoren opretter mappet */
-        ArrayList<ArrayList<ImageView>> imageViews = new ArrayList<>();
+        fieldsImageContainer = new ArrayList<>();
 
         for (int i = 0; i < xMapSize; i++) {
-            imageViews.add(new ArrayList<ImageView>());
+            fieldsImageContainer.add(new ArrayList<ImageView>());
 
             for (int j = 0; j < yMapSize; j++) {
-                imageViews.get(i).add(new ImageView()); //tilføjer en imageview (placegolder for pictures) på den aktuelle plads
+                fieldsImageContainer.get(i).add(new ImageView()); //tilføjer en imageview (placegolder for pictures) på den aktuelle plads
 
-                ImageView currentIV = imageViews.get(i).get(j);
+                ImageView currentIV = fieldsImageContainer.get(i).get(j);
 
                 currentIV.setFitWidth(xSingleGridSize);
                 currentIV.setFitHeight(ySingleGridSize);
@@ -362,6 +366,8 @@ public class GUIController implements Initializable {
             } else if (amount > 0) {
                 if (amount == 1) { // teksten skal printes før item bliver fjernet, da hvis den først fjerner items, kan det være at det grammatiske ikke passer lœngere
                     outputText.setText("Du har indsamlet " + api.getGrammaticalSingularArticle() + ".");
+
+
                 } else {
                     outputText.setText("Du har indsamlet " + amount + " " + api.getCurrentGrammaticalNumber() + ".");
                 }
@@ -371,6 +377,14 @@ public class GUIController implements Initializable {
                 }
 
                 invSizeText.setText(api.getInvItems().size() + " af " + api.INVENTORY_SIZE + " items");
+
+                if (api.getCurrentFoodAmount() <= 0) {
+                    int[] postion = api.getCurrentPosition();
+
+                    api.emptyFoodContainer(postion);
+
+                    fieldsImageContainer.get(postion[0]).get(postion[1]).setImage(new Image("file:src/main/java/layer/presentation/pictures/fields/path.jpg"));
+                }
             }
         } else if (!introFinished) {
             inputTextString = inputText.getText();
@@ -484,13 +498,13 @@ public class GUIController implements Initializable {
 
         switch (direction) {
             case "UP", "W" ->
-                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person/person" + leftRight + "3.png"));
+                    personImageContainer.setImage(new Image("file:src/main/java/layer/presentation/pictures/person/person" + leftRight + "3.png"));
             case "DOWN", "S" ->
-                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person/person" + leftRight + "1.png"));
+                    personImageContainer.setImage(new Image("file:src/main/java/layer/presentation/pictures/person/person" + leftRight + "1.png"));
             case "LEFT", "A" ->
-                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person/person" + leftRight + "2.png"));
+                    personImageContainer.setImage(new Image("file:src/main/java/layer/presentation/pictures/person/person" + leftRight + "2.png"));
             case "RIGHT", "D" ->
-                    person.setImage(new Image("file:src/main/java/layer/presentation/pictures/person/person" + leftRight + "4.png"));
+                    personImageContainer.setImage(new Image("file:src/main/java/layer/presentation/pictures/person/person" + leftRight + "4.png"));
         }
     }
 
@@ -540,6 +554,70 @@ public class GUIController implements Initializable {
                 minusButton(null);
             } else if (key.matches("ENTER")) {
                 enterButton(null);
+            } else if (key.matches("BACK_SPACE")) {
+                if (inputText.getText().length() > 0) {
+                    inputText.setText(inputText.getText().substring(0, inputText.getText().length() - 1));
+                }
+            } else if (key.matches("DIGIT1")) {
+                if (isNum(inputText.getText())) {
+                    inputText.setText(inputText.getText() + 1);
+                } else {
+                    inputText.setText(inputText.getText() + 1);
+                }
+            } else if (key.matches("DIGIT2")) {
+                if (isNum(inputText.getText())) {
+                    inputText.setText(inputText.getText() + "2");
+                } else {
+                    inputText.setText("2");
+                }
+            } else if (key.matches("DIGIT3")) {
+                if (isNum(inputText.getText())) {
+                    inputText.setText(inputText.getText() + "3");
+                } else {
+                    inputText.setText("3");
+                }
+            } else if (key.matches("DIGIT4")) {
+                if (isNum(inputText.getText())) {
+                    inputText.setText(inputText.getText() + "4");
+                } else {
+                    inputText.setText("4");
+                }
+            } else if (key.matches("DIGIT5")) {
+                if (isNum(inputText.getText())) {
+                    inputText.setText(inputText.getText() + "5");
+                } else {
+                    inputText.setText("5");
+                }
+            } else if (key.matches("DIGIT6")) {
+                if (isNum(inputText.getText())) {
+                    inputText.setText(inputText.getText() + "6");
+                } else {
+                    inputText.setText("6");
+                }
+            } else if (key.matches("DIGIT7")) {
+                if (isNum(inputText.getText())) {
+                    inputText.setText(inputText.getText() + "7");
+                } else {
+                    inputText.setText("7");
+                }
+            } else if (key.matches("DIGIT8")) {
+                if (isNum(inputText.getText())) {
+                    inputText.setText(inputText.getText() + "8");
+                } else {
+                    inputText.setText("8");
+                }
+            } else if (key.matches("DIGIT9")) {
+                if (isNum(inputText.getText())) {
+                    inputText.setText(inputText.getText() + "9");
+                } else {
+                    inputText.setText("9");
+                }
+            } else if (key.matches("DIGIT0")) {
+                if (isNum(inputText.getText())) {
+                    inputText.setText(inputText.getText() + "0");
+                } else {
+                    inputText.setText("0");
+                }
             }
             System.out.println(key);
         }

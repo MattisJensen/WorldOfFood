@@ -8,7 +8,7 @@ public class Room implements GameSettings {
 
     private String description;
     private final HashMap<String, Room> exits;
-    private final FoodContainer fc;
+    private FoodContainer fc;
     private final int[] coordinates;
 
     public Room(int x, int y, FoodContainer fc) {
@@ -39,6 +39,10 @@ public class Room implements GameSettings {
 
     public FoodContainer getFoodContainer() {
         return fc;
+    }
+
+    public void setFoodContainer(FoodContainer fc) {
+        this.fc = fc;
     }
 
 }

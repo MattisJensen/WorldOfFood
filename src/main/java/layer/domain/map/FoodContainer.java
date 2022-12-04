@@ -1,7 +1,7 @@
 package layer.domain.map;
 
-import layer.interfaces.GameSettings;
 import layer.domain.item.Food;
+import layer.interfaces.GameSettings;
 
 public class FoodContainer implements GameSettings {
 
@@ -11,16 +11,20 @@ public class FoodContainer implements GameSettings {
     private final double foodPoints;
     private final double climatePoints;
 
-    private int quantity;
+    private int foodAmount;
 
-    public FoodContainer(String name, Food foodItem, int amount) {
+    private int maksGrowth;
+
+    public FoodContainer(String name, Food foodItem, int amount, int maksGrowth) {
         this.name = name;
 
         foodType = new Food(foodItem.getName(), foodItem.getFoodPoints(), foodItem.getClimatePoints());
         foodPoints = foodItem.getFoodPoints();
         climatePoints = foodItem.getClimatePoints();
 
-        this.quantity = amount;
+        this.foodAmount = amount;
+
+        this.maksGrowth = maksGrowth;
     }
 
     public Food getFoodType() {
@@ -32,7 +36,7 @@ public class FoodContainer implements GameSettings {
     }
 
     public void addFood(int amount) {
-        this.quantity += amount;
+        this.foodAmount += amount;
     }
 
     public double getFoodPoints() {
@@ -44,14 +48,14 @@ public class FoodContainer implements GameSettings {
     }
 
     public int getFoodAmount() {
-        return quantity;
+        return foodAmount;
     }
 
     /* Remove Food & Collect Food (ligner lidt en toString version af removeFood) */
     public void removeFood(int amount) {
 
-        if (this.quantity - amount >= 0) {
-            this.quantity -= amount;
+        if (this.foodAmount - amount >= 0) {
+            this.foodAmount -= amount;
         } else {
             System.out.println("You cannot remove more than " + getFoodAmount() + " " + getFoodType().getName() + ".");
         }
@@ -76,22 +80,22 @@ public class FoodContainer implements GameSettings {
         String grammaticalNumber = "";
 
         if (currentFoodType.equalsIgnoreCase(APPLE)) {
-            grammaticalNumber = (quantity > 1 ? "æbler" : "æble");
+            grammaticalNumber = (foodAmount > 1 ? "æbler" : "æble");
 
         } else if (currentFoodType.equalsIgnoreCase(PEAR)) {
-            grammaticalNumber = (quantity > 1 ? "pærer" : "pære");
+            grammaticalNumber = (foodAmount > 1 ? "pærer" : "pære");
 
         } else if (currentFoodType.equalsIgnoreCase(CARROT)) {
-            grammaticalNumber = (quantity > 1 ? "gulerødder" : "gulerod");
+            grammaticalNumber = (foodAmount > 1 ? "gulerødder" : "gulerod");
 
         } else if (currentFoodType.equalsIgnoreCase(POTATO)) {
-            grammaticalNumber = (quantity > 1 ? "kartofler" : "kartoffel");
+            grammaticalNumber = (foodAmount > 1 ? "kartofler" : "kartoffel");
 
         } else if (currentFoodType.equalsIgnoreCase(COW)) {
-            grammaticalNumber = (quantity > 1 ? "køer" : "ko");
+            grammaticalNumber = (foodAmount > 1 ? "køer" : "ko");
 
         } else if (currentFoodType.equalsIgnoreCase(DUCK)) {
-            grammaticalNumber = (quantity > 1 ? "ænder" : "and");
+            grammaticalNumber = (foodAmount > 1 ? "ænder" : "and");
 
         } else if (currentFoodType.equalsIgnoreCase(FISH)) {
             grammaticalNumber = "fisk";
@@ -104,6 +108,7 @@ public class FoodContainer implements GameSettings {
 
         String currentFoodType = foodType.getName();
         String singularArticle = "";
+
 
         if (currentFoodType.equalsIgnoreCase(APPLE)) {
             singularArticle = APPLE_A;
@@ -160,5 +165,24 @@ public class FoodContainer implements GameSettings {
         return grammaticalPlural;
     }
 
+    public void grow() {
+        if (foodAmount != 0) { //hvis det er 0, så vil der ikke komme noget tilbage
 
+            /* make 3 grow intervals a,b og under a, with their own growspeed. More foodamount = higher grow speed */
+            double b = maksGrowth / 1.33;
+            double a = b / 1.33;
+
+            if (foodAmount >= b) {
+                foodAmount += 3;
+            } else if (foodAmount >= a) {
+                foodAmount += 2;
+            } else if (foodAmount < a) {
+                foodAmount++;
+            }
+
+            if (foodAmount > maksGrowth) {
+                foodAmount = maksGrowth;
+            }
+        }
+    }
 }

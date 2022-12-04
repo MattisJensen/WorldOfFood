@@ -3,7 +3,6 @@ package layer.domain;
 import layer.domain.game.Game;
 import layer.domain.item.Food;
 import layer.domain.map.FoodContainer;
-import layer.domain.person.Person;
 import layer.interfaces.GameInterface;
 import layer.interfaces.GameSettings;
 import layer.interfaces.MapInterface;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 
 public class GameAPI implements GameSettings, GameInterface, PersonInterface, MapInterface {
     private static Game game;
-    private static Person person;
     private static boolean newGame = false;
 
     /* (In)Game related methods */
@@ -26,7 +24,6 @@ public class GameAPI implements GameSettings, GameInterface, PersonInterface, Ma
     public void restartGame() {
         /* Java garbage collector burde selv fjerne det gamle Game- og Personobject, da der ikke længere vil være en reference i til dem fra applikationen */
         game = new Game();
-        person = new Person();
     }
 
     @Override
@@ -37,7 +34,6 @@ public class GameAPI implements GameSettings, GameInterface, PersonInterface, Ma
             case "LEFT", "A" -> game.goRoom("west");
             case "RIGHT", "D" -> game.goRoom("east");
         }
-        person.move();
     }
 
     @Override
@@ -85,17 +81,17 @@ public class GameAPI implements GameSettings, GameInterface, PersonInterface, Ma
     /* Person related methods */
     @Override
     public void newPerson() {
-        person = new Person();
+        game.newPerson();
     }
 
     @Override
     public void setName(String name) {
-        person.setName(name);
+        game.getPerson().setName(name);
     }
 
     @Override
     public String getName() {
-        return person.getName();
+        return game.getPerson().getName();
     }
 
     @Override
@@ -107,7 +103,7 @@ public class GameAPI implements GameSettings, GameInterface, PersonInterface, Ma
                 if (game.getMap().getMapFoodFields().get(i).get(j).equalsIgnoreCase(foodItem)) { // prøver at finde et fooditem med samme navn i mappet for bagefter at kunne hente dette foodobjekt, da presentationlayer kun sender en String, men inventaret skal have et fooditem med tilsvarende food- og klimapoints
 
                     Food mapItem = game.getMap().getMapList().get(i).get(j).getFoodContainer().getFoodType(); //returns a duplicate a fooditem
-                    person.getInventory().addFoodItem(mapItem, 1); //adds the new generated duplicate to inventory
+                    game.getPerson().getInventory().addFoodItem(mapItem, 1); //adds the new generated duplicate to inventory
 
                     return; //ends the method (returns void)
                 }
@@ -122,49 +118,49 @@ public class GameAPI implements GameSettings, GameInterface, PersonInterface, Ma
 
         currentFC.collect(amount); // colllects the choosen amount of items from the foodcontainer
 
-        person.getInventory().addFoodItem(currentFC.getFoodType(), amount); // adds the collected food to inventory
+        game.getPerson().getInventory().addFoodItem(currentFC.getFoodType(), amount); // adds the collected food to inventory
 
         return currentFC.getFoodType().getName();
     }
 
     @Override
     public boolean eat(String food) {
-        return person.eat(food);
+        return game.getPerson().eat(food);
     }
 
     @Override
     public boolean isGameOver() {
-        return person.isGameOver();
+        return game.getPerson().isGameOver();
     }
 
     @Override
     public double getFoodPoints() {
-        return person.getFoodPoints();
+        return game.getPerson().getFoodPoints();
     }
 
     @Override
     public void removeFoodPoints(double amount) {
-        person.removeFoodPoints(amount);
+        game.getPerson().removeFoodPoints(amount);
     }
 
     @Override
     public void startFoodPointTimer() {
-        person.timer(true);
+        game.getPerson().timer(true);
     }
 
     @Override
     public double getClimatePoints() {
-        return person.getClimatePoints();
+        return game.getPerson().getClimatePoints();
     }
 
     @Override
     public boolean enoughInvSpace(int amount) {
-        return person.getInventory().enoughInvSpace(amount);
+        return game.getPerson().getInventory().enoughInvSpace(amount);
     }
 
     @Override
     public ArrayList getInvItems() {
-        return person.getInventory().getItems();
+        return game.getPerson().getInventory().getItems();
     }
 
 
@@ -172,5 +168,10 @@ public class GameAPI implements GameSettings, GameInterface, PersonInterface, Ma
     @Override
     public ArrayList<ArrayList<String>> getMapFoodFields() {
         return game.getMap().getMapFoodFields();
+    }
+
+    @Override
+    public void emptyFoodContainer(int[] postionXY) {
+        game.getMap().getMapList().get(postionXY[0]).get(postionXY[1]).setFoodContainer(new FoodContainer(EMPTY, new Food(EMPTY, 0, 0), 0, 0));
     }
 }

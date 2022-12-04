@@ -15,7 +15,6 @@ public class GameClient {
     public GameClient() throws IOException {
         api = new GameAPI();
         api.newGame();
-        api.newPerson();
 
         FXMLLoader fxmlLoader = new FXMLLoader(WorldOfFoodApplication.class.getResource("GUI.fxml"));
         scene = new Scene(fxmlLoader.load());
