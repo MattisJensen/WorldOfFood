@@ -1,22 +1,35 @@
 package layer.domain.person;
 
-import layer.interfaces.GameSettings;
 import layer.domain.item.Food;
 import layer.domain.item.Item;
+import layer.interfaces.GameSettings;
 
+import java.util.Random;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Person implements GameSettings {
 
     private String name;
     private double foodPoints = P_START_FOODPOINTS;
     private double climatePoints = P_START_CLIMATEPOINTS;
+
     private final Inventory inv;
-    private final boolean GameOver = false;
+
+    private boolean timerStarted = false;
+    private Timer timer;
+    private Random random;
+
+    private int removeRandomFoodPointsTime;
 
     /* Constructor af Person klassen */
     public Person() {
         inv = new Inventory();
+
+        timer = new Timer();
+        random = new Random();
+        removeRandomFoodPointsTime = 1000 * P_MIN_REMOVETIME_ENERGY;
     }
 
 
@@ -61,10 +74,51 @@ public class Person implements GameSettings {
         if (foodPoints >= P_MAX_FOODPOINTS) { // hvis foodpoints af personen skulle blive over maks ved additionen i koden før bliver den sat til max foodpoints
             foodPoints = P_MAX_FOODPOINTS;
         }
+
+        if (foodPoints < 0) {
+            foodPoints = 0;
+        }
     }
 
     public void removeFoodPoints(double points) {
         foodPoints -= points;
+        if (foodPoints < 0) {
+            foodPoints = 0;
+        }
+    }
+
+    public void setRemoveRandomFoodPointsTime(int time) {
+        removeRandomFoodPointsTime = time;
+    }
+
+    public void timer(boolean b) {
+        timerStarted = b;
+
+        if (timerStarted) {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    setRemoveRandomFoodPointsTime(1000 * random.nextInt(P_MIN_REMOVETIME_ENERGY, P_MAX_REMOVETIME_ENERGY + 1));
+
+                    if (isGameOver()) {
+                        timer.cancel();
+                        timer.purge();
+                    }
+                }
+            }, 0, P_MIN_REMOVETIME_ENERGY);
+
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    removeFoodPoints(random.nextDouble(P_MIN_REMOVE_ENERGYPOINTS, P_MAX_REMOVE_ENERGYPOINTS + 1));
+
+                    if (isGameOver()) {
+                        timer.cancel();
+                        timer.purge();
+                    }
+                }
+            }, 0, removeRandomFoodPointsTime); // wait 0 milliseconds before doing the action and do it every 1000ms (1 second)
+        }
     }
 
     public boolean isGameOver() {

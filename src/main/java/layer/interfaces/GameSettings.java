@@ -13,9 +13,16 @@ public interface GameSettings {
     final double P_MAX_FOODPOINTS = 100;
     final double P_START_FOODPOINTS = 60;
     final double P_START_CLIMATEPOINTS = 0;
-    final double P_MOVEENERGY = 10;
+    final double P_MOVEENERGY = 5;
 
-    final int PERSON_XY_SIZE = 100; //in pixels - height and width from person should be smaller than field width * height
+    final int P_XY_SIZE = 100; //in pixels - height and width from person should be smaller than field width * height
+
+    final int P_MIN_REMOVETIME_ENERGY = 2; // in seconds - indstiller et interval, hvor der tilfældigt vælges et antal sekunder fra, hvornår der skal removes foodpoints
+    final int P_MAX_REMOVETIME_ENERGY = 4; // in seconds
+
+    final double P_MIN_REMOVE_ENERGYPOINTS = 0.4; // in energypoints - indstiller et interval, hvor der tilfældigt vælges, hvor mange foodpoints skal removes alle x sekunder indstillet ovenover
+    final double P_MAX_REMOVE_ENERGYPOINTS = 1.7; // in energypoints
+
 
     /* Inventory */
     final int INVENTORY_SIZE = 20;

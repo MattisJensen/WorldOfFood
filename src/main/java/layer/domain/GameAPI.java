@@ -143,6 +143,16 @@ public class GameAPI implements GameSettings, GameInterface, PersonInterface, Ma
     }
 
     @Override
+    public void removeFoodPoints(double amount) {
+        person.removeFoodPoints(amount);
+    }
+
+    @Override
+    public void startFoodPointTimer() {
+        person.timer(true);
+    }
+
+    @Override
     public double getClimatePoints() {
         return person.getClimatePoints();
     }

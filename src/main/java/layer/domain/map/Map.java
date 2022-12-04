@@ -1,7 +1,7 @@
 package layer.domain.map;
 
-import layer.interfaces.GameSettings;
 import layer.domain.item.Food;
+import layer.interfaces.GameSettings;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,25 +33,25 @@ public class Map implements GameSettings {
                 int num = random.nextInt(99) + 1;
 
                 if (num < APPLE_SPAWNCHANCE) { // isUnder checker om det tilfældige nummer er under det følgende nummer - ingen switch, da man i en switch ikke kan indstille en range numre
-                    fc = new FoodContainer(TREE, new Food(APPLE, APPLE_FOODPOINTS, APPLE_CLIMATEPOINTS), random.nextInt(APPLE_MAX - APPLE_MIN) + APPLE_MIN);
+                    fc = new FoodContainer(TREE, new Food(APPLE, APPLE_FOODPOINTS, APPLE_CLIMATEPOINTS), random.nextInt(APPLE_MIN, APPLE_MAX + 1));
 
                 } else if (num < APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE) {
-                    fc = new FoodContainer(TREE, new Food(PEAR, PEAR_FOODPOINTS, PEAR_CLIMATEPOINTS), random.nextInt(PEAR_MAX - PEAR_MIN) + PEAR_MIN);
+                    fc = new FoodContainer(TREE, new Food(PEAR, PEAR_FOODPOINTS, PEAR_CLIMATEPOINTS), random.nextInt(PEAR_MIN, PEAR_MAX + 1));
 
                 } else if (num < APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE) {
-                    fc = new FoodContainer(FIELD, new Food(CARROT, CARROT_FOODPOINTS, CARROT_CLIMATEPOINTS), random.nextInt(CARROT_MAX - CARROT_MIN) + CARROT_MIN);
+                    fc = new FoodContainer(FIELD, new Food(CARROT, CARROT_FOODPOINTS, CARROT_CLIMATEPOINTS), random.nextInt(CARROT_MIN, CARROT_MAX + 1));
 
                 } else if (num < APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE + POTATO_SPAWNCHANCE) {
-                    fc = new FoodContainer(FIELD, new Food(POTATO, POTATO_FOODPOINTS, POTATO_CLIMATEPOINTS), random.nextInt(POTATO_MAX - POTATO_MIN) + POTATO_MIN);
+                    fc = new FoodContainer(FIELD, new Food(POTATO, POTATO_FOODPOINTS, POTATO_CLIMATEPOINTS), random.nextInt(POTATO_MIN, POTATO_MAX + 1));
 
                 } else if (num < APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE + POTATO_SPAWNCHANCE + COW_SPAWNCHANCE) {
-                    fc = new FoodContainer(FIELD, new Food(COW, COW_FOODPOINTS, COW_CLIMATEPOINTS), random.nextInt(COW_MAX - COW_MIN) + COW_MIN);
+                    fc = new FoodContainer(FIELD, new Food(COW, COW_FOODPOINTS, COW_CLIMATEPOINTS), random.nextInt(COW_MIN, COW_MAX + 1));
 
                 } else if (num < APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE + POTATO_SPAWNCHANCE + COW_SPAWNCHANCE + FISH_SPAWNCHANCE) {
-                    fc = new FoodContainer(LAKE, new Food(FISH, FISH_FOODPOINTS, FISH_CLIMATEPOINTS), random.nextInt(FISH_MAX - FISH_MIN) + FISH_MIN);
+                    fc = new FoodContainer(LAKE, new Food(FISH, FISH_FOODPOINTS, FISH_CLIMATEPOINTS), random.nextInt(FISH_MIN, FISH_MAX + 1));
 
                 } else if (num < APPLE_SPAWNCHANCE + PEAR_SPAWNCHANCE + CARROT_SPAWNCHANCE + POTATO_SPAWNCHANCE + COW_SPAWNCHANCE + FISH_SPAWNCHANCE + DUCK_SPAWNCHANCE) {
-                    fc = new FoodContainer(LAKE, new Food(DUCK, DUCK_FOODPOINTS, DUCK_CLIMATEPOINTS), random.nextInt(DUCK_MAX - DUCK_MIN) + DUCK_MIN);
+                    fc = new FoodContainer(LAKE, new Food(DUCK, DUCK_FOODPOINTS, DUCK_CLIMATEPOINTS), random.nextInt(DUCK_MIN, DUCK_MAX + 1));
 
                 } else {
                     fc = new FoodContainer(EMPTY, new Food(EMPTY, 0, 0), 0);

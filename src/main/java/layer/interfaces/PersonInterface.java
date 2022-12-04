@@ -20,6 +20,10 @@ public interface PersonInterface {
 
     public double getFoodPoints();
 
+    public void removeFoodPoints(double amount);
+
+    public void startFoodPointTimer();
+
     public double getClimatePoints();
 
     public boolean enoughInvSpace(int amount);

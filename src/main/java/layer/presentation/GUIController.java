@@ -1,5 +1,9 @@
 package layer.presentation;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import layer.domain.GameAPI;
 
 import java.net.MalformedURLException;
@@ -102,6 +107,8 @@ public class GUIController implements Initializable {
 
     private ObservableList<String> items;
 
+    private Timeline timeline;
+
     /* Person related variables */
     private ImageView person;
     private HBox personCenter;
@@ -115,10 +122,12 @@ public class GUIController implements Initializable {
     private boolean introFinished;
     private String inputTextString;
 
+
     /* initialize er metoden, der bliver udført når Controller klassen bliver loadet - altså lidt som en constructor til klassen */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         api = new GameAPI();
+        Platform.setImplicitExit(false);
 
         /* Intro related stuff */
         step1 = false;
@@ -133,7 +142,7 @@ public class GUIController implements Initializable {
         invList.setItems(items);
 
         /* Set init values */
-        foodBar.setProgress(api.getFoodPoints() / 100);
+        foodBar.setProgress(api.getFoodPoints() / api.P_MAX_FOODPOINTS);
         invSizeText.setText("0 af " + api.INVENTORY_SIZE + " items");
         scrollPaneMap.setHvalue(0.5);
         scrollPaneMap.setVvalue(0.5);
@@ -220,16 +229,29 @@ public class GUIController implements Initializable {
 
             /* sætter personen på mappet */
             person = new ImageView();
-            person.setFitWidth(api.PERSON_XY_SIZE);
-            person.setFitHeight(api.PERSON_XY_SIZE);
+            person.setFitWidth(api.P_XY_SIZE);
+            person.setFitHeight(api.P_XY_SIZE);
 
             personCenter = new HBox();
             personCenter.setAlignment(Pos.CENTER);
             personCenter.prefWidth(api.XMAP_SIZE);
             personCenter.prefHeight(api.YMAP_SIZE);
             personCenter.getChildren().add(person);
-            
+
             movePerson("UP");
+
+            api.startFoodPointTimer();
+
+            /* udfører alle api.P_MIN_REMOVETIME_ENERGY sekunder det er står i body */
+            timeline = new Timeline(new KeyFrame(Duration.seconds(api.P_MIN_REMOVETIME_ENERGY), ev -> {
+                foodBar.setProgress(api.getFoodPoints() / api.P_MAX_FOODPOINTS);
+                gameOver();
+                if (api.isGameOver()) {
+                    timeline.stop();
+                }
+            }));
+            timeline.setCycleCount(Animation.INDEFINITE); //gentager uendelige mange gange timeren - man kan også indsætte et fast tal fx 7 gange
+            timeline.play();
         }
     }
 
@@ -396,7 +418,6 @@ public class GUIController implements Initializable {
                 inputText.setText("1");
             }
         } else {
-//            inputText.setText("nej");
             nameCorrect();
         }
     }
@@ -415,7 +436,7 @@ public class GUIController implements Initializable {
 
                 score.setText("" + api.getClimatePoints());
 
-                foodBar.setProgress(api.getFoodPoints() / 100);
+                foodBar.setProgress(api.getFoodPoints() / api.P_MAX_FOODPOINTS);
 
                 outputText.setText("Mmmm... yummmy " + api.getCurrentFoodName() + ".");
 
