@@ -28,7 +28,7 @@
                <children>
                   <VBox fx:id="gameOverVBox" alignment="CENTER" prefHeight="1000.0" prefWidth="993.0" visible="false">
                      <children>
-                        <Label alignment="CENTER" prefHeight="113.0" prefWidth="1652.0" text="GameOver" textAlignment="CENTER" textFill="#b03333">
+                        <Label fx:id="gameOverLabel" alignment="CENTER" prefHeight="113.0" prefWidth="1652.0" text="GameOver" textAlignment="CENTER" textFill="#b03333">
                            <font>
                               <Font name="System Bold" size="92.0" />
                            </font>

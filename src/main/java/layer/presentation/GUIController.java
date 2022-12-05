@@ -17,6 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import layer.domain.GameAPI;
@@ -57,6 +58,9 @@ public class GUIController implements Initializable {
 
     @FXML
     private Button gameOverButton;
+
+    @FXML
+    private Label gameOverLabel;
 
     @FXML
     private TextField inputText;
@@ -348,6 +352,10 @@ public class GUIController implements Initializable {
         leftButton.setVisible(b);
         rightButton.setVisible(b);
 
+        upButton.setDisable(!b);
+        downButton.setDisable(!b);
+        leftButton.setDisable(!b);
+        rightButton.setDisable(!b);
         scrollPaneMap.setDisable(!b);
     }
 
@@ -634,9 +642,12 @@ public class GUIController implements Initializable {
             if (api.getClimatePoints() > 0) {
                 stats.setText("Åh nej " + api.getName() + ", så har du ikke\nlængere energi tilbage.\n\nDog kan jeg se, at du med dine\n"
                         + api.getClimatePoints() + " klimapoint har haft spisevaner,\nsom ikke har påvirket vores klima negativ.\n\nVil du prøve igen og se,\nom du kan klare dig endnu bedre?");
+                gameOverLabel.setTextFill(Color.web("#6acc25"));
+
             } else {
                 stats.setText("Åh nej " + api.getName() + ", så har du ikke\nlængere energi tilbage.\n\nJeg kan se, at du med dine\n"
                         + api.getClimatePoints() + " klimapoint har haft spisevaner,\nsom har påvirket vores klima negativ.\n\nPrøv igen, jeg er sikker på\n det kan du bedre!");
+                gameOverLabel.setTextFill(Color.web("#b03333"));
             }
         }
     }
