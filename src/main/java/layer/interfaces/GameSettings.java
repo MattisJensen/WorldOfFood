@@ -76,12 +76,12 @@ public interface GameSettings {
     final int DUCK_MAX = 7;
 
     /* Spawnchance of roomtypes in % (100 - all spawnchances = chance for room is empty) */
-    final int APPLE_SPAWNCHANCE = 9;
-    final int PEAR_SPAWNCHANCE = 9;
-    final int CARROT_SPAWNCHANCE = 13;
-    final int POTATO_SPAWNCHANCE = 13;
+    final int APPLE_SPAWNCHANCE = 5;
+    final int PEAR_SPAWNCHANCE = 4;
+    final int CARROT_SPAWNCHANCE = 7;
+    final int POTATO_SPAWNCHANCE = 6;
     final int COW_SPAWNCHANCE = 5;
-    final int FISH_SPAWNCHANCE = 7;
+    final int FISH_SPAWNCHANCE = 4;
     final int DUCK_SPAWNCHANCE = 4;
 
     /* Item titles */
