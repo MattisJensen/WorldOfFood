@@ -245,6 +245,7 @@ public class GUIController implements Initializable {
             movePerson("UP");
 
             api.startFoodPointTimer();
+            api.startGrowthTimer();
 
             /* udfører alle api.P_MIN_REMOVETIME_ENERGY sekunder det er står i body */
             timeline = new Timeline(new KeyFrame(Duration.seconds(api.P_MIN_REMOVETIME_ENERGY), ev -> {

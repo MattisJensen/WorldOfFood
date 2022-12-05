@@ -77,6 +77,11 @@ public class GameAPI implements GameSettings, GameInterface, PersonInterface, Ma
         return !game.getCurrentRoom().getFoodContainer().getName().equals(EMPTY);
     }
 
+    @Override
+    public void startGrowthTimer() {
+        game.growthTimer(true);
+    }
+
 
     /* Person related methods */
     @Override
@@ -145,7 +150,7 @@ public class GameAPI implements GameSettings, GameInterface, PersonInterface, Ma
 
     @Override
     public void startFoodPointTimer() {
-        game.getPerson().timer(true);
+        game.getPerson().energyTimer(true);
     }
 
     @Override

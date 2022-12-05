@@ -27,4 +27,6 @@ public interface GameInterface {
 
     public boolean hasCurrentFood();
 
+    public void startGrowthTimer();
+
 }

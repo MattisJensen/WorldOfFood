@@ -6,6 +6,9 @@ import layer.domain.person.Person;
 import layer.interfaces.GameSettings;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class Game implements GameSettings {
 
@@ -13,10 +16,13 @@ public class Game implements GameSettings {
     private Room currentRoom;
 
     private Person person;
+    private Timer timer;
+    private boolean timerStarted = false;
 
     public Game() {
         person = new Person();
         createMap();
+        timer = new Timer();
     }
 
     private void createMap() {
@@ -33,15 +39,6 @@ public class Game implements GameSettings {
         } else {
             currentRoom = nextRoom;
             person.move();
-
-            /* kalde grow metoden på hver foodcontainer så snart personen tager et skridt */
-            for (ArrayList<Room> a : map.getMapList()) {
-                for (Room r : a) {
-                    if (r.getFoodContainer().getName() != EMPTY) {
-                        r.getFoodContainer().grow();
-                    }
-                }
-            }
             return true;
         }
     }
@@ -60,5 +57,30 @@ public class Game implements GameSettings {
 
     public void newPerson() {
         person = new Person();
+    }
+
+    public void growthTimer(boolean b) {
+        timerStarted = b;
+
+        if (timerStarted) {
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    /* kalde grow metoden på hver foodcontainer så snart personen tager et skridt */
+                    for (ArrayList<Room> a : map.getMapList()) {
+                        for (Room r : a) {
+                            if (r.getFoodContainer().getName() != EMPTY) {
+                                r.getFoodContainer().grow();
+                            }
+                        }
+                    }
+
+                    if (person.isGameOver()) {
+                        timer.cancel();
+                        timer.purge();
+                    }
+                }
+            }, 0, FIELD_GROWTH_TIME * 1000);
+        }
     }
 }

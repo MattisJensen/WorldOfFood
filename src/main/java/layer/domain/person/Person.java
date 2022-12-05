@@ -91,7 +91,7 @@ public class Person implements GameSettings {
         removeRandomFoodPointsTime = time;
     }
 
-    public void timer(boolean b) {
+    public void energyTimer(boolean b) {
         timerStarted = b;
 
         if (timerStarted) {

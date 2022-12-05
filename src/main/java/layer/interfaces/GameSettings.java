@@ -6,8 +6,10 @@ public interface GameSettings {
     final int XMAP_SIZE = 15;
     final int YMAP_SIZE = 15;
 
-    final int FIELD_WIDTH = 140; //in pixels - height and width should have the same size
-    final int FIELD_HEIGHT = 140; //in pixels - height and width should have the same size
+    final int FIELD_WIDTH = 140; // in pixels - height and width should have the same size
+    final int FIELD_HEIGHT = 140; // in pixels - height and width should have the same size
+
+    final int FIELD_GROWTH_TIME = 20; // in seconds - every x seconds new plants / animals will reproduce them
 
     /* Person */
     final double P_MAX_FOODPOINTS = 100;
@@ -15,7 +17,7 @@ public interface GameSettings {
     final double P_START_CLIMATEPOINTS = 0;
     final double P_MOVEENERGY = 5;
 
-    final int P_XY_SIZE = 100; //in pixels - height and width from person should be smaller than field width * height
+    final int P_XY_SIZE = 100; // in pixels - height and width from person should be smaller than field width * height
 
     final int P_MIN_REMOVETIME_ENERGY = 2; // in seconds - indstiller et interval, hvor der tilfældigt vælges et antal sekunder fra, hvornår der skal removes foodpoints
     final int P_MAX_REMOVETIME_ENERGY = 4; // in seconds
