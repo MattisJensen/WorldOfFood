@@ -117,7 +117,7 @@ public class Person implements GameSettings {
                         timer.purge();
                     }
                 }
-            }, 0, removeRandomFoodPointsTime); // wait 0 milliseconds before doing the action and do it every 1000ms (1 second)
+            }, 0, removeRandomFoodPointsTime); // wait 0 milliseconds before doing the action and do it every removeRandomFoodPointsTime time
         } else if (timerStarted) {
             timer.cancel();
             timer.purge();
