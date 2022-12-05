@@ -81,6 +81,9 @@ public class Game implements GameSettings {
                     }
                 }
             }, 0, FIELD_GROWTH_TIME * 1000);
+        } else if (timerStarted) {
+            timer.cancel();
+            timer.purge();
         }
     }
 }

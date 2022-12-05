@@ -211,16 +211,16 @@ public class GUIController implements Initializable {
             minusButton.setText("-");
             plusButton.setText("+");
 
+            /* show and disable controls */
             upButton.setVisible(true);
             downButton.setVisible(true);
             leftButton.setVisible(true);
             rightButton.setVisible(true);
-            eatButton.setVisible(true);
+
             upButton.setDisable(true);
             downButton.setDisable(true);
             leftButton.setDisable(true);
             rightButton.setDisable(true);
-            eatButton.setDisable(true);
 
             outputText.setText("Med W A S D på dit keyboard eller ← ↓ ↑ → knapperne nedenunder kan du navigere gennem mappet og ved hjælp af dit trackpad kan du bevæge mappet.\n\nMed + og - på dit keyboard eller de to knapper til højre kan du vælge, hvor meget mad du gerne vil høste. \n\nMed M på dit keyboard eller Spis knappen til venstre kan du spise maden fra dit inventar.\n\nKlik på start så snart du er klar.");
         } else {
@@ -280,7 +280,7 @@ public class GUIController implements Initializable {
         /* henter antal af felter fra domainlayer */
         int xMapSize = api.XMAP_SIZE;
         int yMapSize = api.YMAP_SIZE;
-        /* fastlægge hvor stor i pixel et enkelt felte skal være */
+        /* fastlægge hvor stor i pixel et enkelt felt skal være */
         int xSingleGridSize = api.FIELD_WIDTH;
         int ySingleGridSize = api.FIELD_HEIGHT;
 
@@ -339,7 +339,6 @@ public class GUIController implements Initializable {
 
     private void setGUIVisible(boolean b) {
         invVBox.setVisible(b);
-        scrollPaneMap.setDisable(!b);
         scoreText.setVisible(b);
         score.setVisible(b);
         foodBarText.setVisible(b);
@@ -348,6 +347,8 @@ public class GUIController implements Initializable {
         downButton.setVisible(b);
         leftButton.setVisible(b);
         rightButton.setVisible(b);
+
+        scrollPaneMap.setDisable(!b);
     }
 
 
