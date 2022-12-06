@@ -201,7 +201,7 @@ public class GUIController implements Initializable {
                     step1 = true;
 
                     enterButton.setText("Videre");
-                    outputText.setText("Hi " + name + ", godt at se dig!\n\nDu vågnede et eller andet sted udenfor og ser søer, træer og marker. Da du selvfølgelig er sulten, skal du spise noget for at overleve.\n\nDet betyder, at hvis du ikke længere har energi tilbage, slutter spillet.");
+                    outputText.setText("Hi " + name + ", godt at se dig!\n\nDu vågnede et eller andet sted udenfor og ser søer, træer og marker. Da du selvfølgelig er sulten, skal du spise noget for at overleve.\n\nDet betyder, at hvis du ikke længere har energi tilbage, slutter spillet.\n\nHold øje med din energi: du har brug for energi når du bevæger dig, men også mens du står bruger din krop energi.");
                 }
             }
         } else if (!step2) {
@@ -226,7 +226,7 @@ public class GUIController implements Initializable {
             leftButton.setDisable(true);
             rightButton.setDisable(true);
 
-            outputText.setText("Med W A S D på dit keyboard eller ← ↓ ↑ → knapperne nedenunder kan du navigere gennem mappet og ved hjælp af dit trackpad kan du bevæge mappet.\n\nMed + og - på dit keyboard eller de to knapper til højre kan du vælge, hvor meget mad du gerne vil høste. \n\nMed M på dit keyboard eller Spis knappen til venstre kan du spise maden fra dit inventar.\n\nKlik på start så snart du er klar.");
+            outputText.setText("Med W A S D på dit keyboard kan du navigere gennem mappet og ved hjælp af dit trackpad kan du bevæge mappet.\n\nMed + og - på dit keyboard eller de to knapper til højre kan du vælge, hvor meget mad du gerne vil høste.\n\nMed M på dit keyboard eller Spis knappen til venstre kan du spise maden fra dit inventar.\n\nKlik på start så snart du er klar.");
         } else {
             enterButton.setText("Saml op");
             minusButton.setDisable(false);
@@ -458,11 +458,11 @@ public class GUIController implements Initializable {
             if (eaten) {
                 items.remove(selectedItem);
 
-                score.setText("" + api.getClimatePoints());
+                score.setText("" + Math.round(api.getClimatePoints()));
 
                 foodBar.setProgress(api.getFoodPoints() / api.P_MAX_FOODPOINTS);
 
-                outputText.setText("Mmmm... yummmy " + api.getCurrentFoodName() + ".");
+                outputText.setText("Mmmmm... yummy " + api.getCurrentFoodName() + ".");
 
                 invSizeText.setText(api.getInvItems().size() + " af " + api.INVENTORY_SIZE + " items");
 
@@ -641,12 +641,12 @@ public class GUIController implements Initializable {
 
             if (api.getClimatePoints() > 0) {
                 stats.setText("Åh nej " + api.getName() + ", så har du ikke\nlængere energi tilbage.\n\nDog kan jeg se, at du med dine\n"
-                        + api.getClimatePoints() + " klimapoint har haft spisevaner,\nsom ikke har påvirket vores klima negativ.\n\nVil du prøve igen og se,\nom du kan klare dig endnu bedre?");
+                        + Math.round(api.getClimatePoints()) + " klimapoint har haft spisevaner,\nsom ikke har påvirket vores klima negativ.\n\nVil du prøve igen og se,\nom du kan klare dig endnu bedre?");
                 gameOverLabel.setTextFill(Color.web("#6acc25"));
 
             } else {
                 stats.setText("Åh nej " + api.getName() + ", så har du ikke\nlængere energi tilbage.\n\nJeg kan se, at du med dine\n"
-                        + api.getClimatePoints() + " klimapoint har haft spisevaner,\nsom har påvirket vores klima negativ.\n\nPrøv igen, jeg er sikker på\n det kan du bedre!");
+                        + Math.round(api.getClimatePoints()) + " klimapoint har haft spisevaner,\nsom har påvirket vores klima negativ.\n\nPrøv igen, jeg er sikker på\n det kan du bedre!");
                 gameOverLabel.setTextFill(Color.web("#b03333"));
             }
         }
