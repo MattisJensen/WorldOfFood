@@ -12,18 +12,18 @@ public interface GameSettings {
     final int FIELD_GROWTH_TIME = 20; // in seconds - every x seconds new plants / animals will reproduce them
 
     /* Person */
-    final double P_MAX_FOODPOINTS = 100;
-    final double P_START_FOODPOINTS = 60;
+    final double P_MAX_FOODPOINTS = 10000;
+    final double P_START_FOODPOINTS = 5000;
     final double P_START_CLIMATEPOINTS = 0;
-    final double P_MOVEENERGY = 5;
+    final double P_MOVEENERGY = 300;
 
     final int P_XY_SIZE = 100; // in pixels - height and width from person should be smaller than field width * height
 
-    final int P_MIN_REMOVETIME_ENERGY = 2; // in seconds - indstiller et interval, hvor der tilfældigt vælges et antal sekunder fra, hvornår der skal removes foodpoints
-    final int P_MAX_REMOVETIME_ENERGY = 4; // in seconds
+    final int P_MIN_REMOVETIME_ENERGY = 3; // in seconds - indstiller et interval, hvor der tilfældigt vælges et antal sekunder fra, hvornår der skal removes foodpoints
+    final int P_MAX_REMOVETIME_ENERGY = 6; // in seconds
 
-    final double P_MIN_REMOVE_ENERGYPOINTS = 0.4; // in energypoints - indstiller et interval, hvor der tilfældigt vælges, hvor mange foodpoints skal removes alle x sekunder indstillet ovenover
-    final double P_MAX_REMOVE_ENERGYPOINTS = 1.7; // in energypoints
+    final double P_MIN_REMOVE_ENERGYPOINTS = 40; // in energypoints - indstiller et interval, hvor der tilfældigt vælges, hvor mange foodpoints skal removes alle x sekunder indstillet ovenover
+    final double P_MAX_REMOVE_ENERGYPOINTS = 170; // in energypoints
 
 
     /* Inventory */
@@ -32,33 +32,33 @@ public interface GameSettings {
 
     /* Items */
     /* Foodpoints */
-    final double APPLE_FOODPOINTS = 8;
-    final double PEAR_FOODPOINTS = 8;
+    final double APPLE_FOODPOINTS = 216;
+    final double PEAR_FOODPOINTS = 227;
 
-    final double CARROT_FOODPOINTS = 5;
-    final double POTATO_FOODPOINTS = 5;
-    final double COW_FOODPOINTS = 20;
+    final double CARROT_FOODPOINTS = 150;
+    final double POTATO_FOODPOINTS = 342;
+    final double COW_FOODPOINTS = 687;
 
-    final double FISH_FOODPOINTS = 12;
-    final double DUCK_FOODPOINTS = 12;
+    final double FISH_FOODPOINTS = 742;
+    final double DUCK_FOODPOINTS = 497;
 
     /* Climatepoints */
-    final double APPLE_CLIMATEPOINTS = 10;
-    final double PEAR_CLIMATEPOINTS = 10;
+    final double APPLE_CLIMATEPOINTS = 3.01;
+    final double PEAR_CLIMATEPOINTS = 1.65;
 
-    final double CARROT_CLIMATEPOINTS = 16;
-    final double POTATO_CLIMATEPOINTS = 16;
-    final double COW_CLIMATEPOINTS = -30;
+    final double CARROT_CLIMATEPOINTS = 3.64;
+    final double POTATO_CLIMATEPOINTS = 3.10;
+    final double COW_CLIMATEPOINTS = -216.68;
 
-    final double FISH_CLIMATEPOINTS = -10;
-    final double DUCK_CLIMATEPOINTS = -15;
+    final double FISH_CLIMATEPOINTS = -41.02;
+    final double DUCK_CLIMATEPOINTS = -6.16;
 
     /* Amount of items at creation */
     final int APPLE_MIN = 6;
-    final int APPLE_MAX = 12;
+    final int APPLE_MAX = 10;
 
     final int PEAR_MIN = 6;
-    final int PEAR_MAX = 12;
+    final int PEAR_MAX = 10;
 
     final int CARROT_MIN = 9;
     final int CARROT_MAX = 16;
@@ -76,13 +76,13 @@ public interface GameSettings {
     final int DUCK_MAX = 7;
 
     /* Spawnchance of roomtypes in % (100 - all spawnchances = chance for room is empty) */
-    final int APPLE_SPAWNCHANCE = 5;
-    final int PEAR_SPAWNCHANCE = 4;
-    final int CARROT_SPAWNCHANCE = 7;
-    final int POTATO_SPAWNCHANCE = 6;
-    final int COW_SPAWNCHANCE = 5;
-    final int FISH_SPAWNCHANCE = 4;
-    final int DUCK_SPAWNCHANCE = 4;
+    final int APPLE_SPAWNCHANCE = 3;
+    final int PEAR_SPAWNCHANCE = 2;
+    final int CARROT_SPAWNCHANCE = 3;
+    final int POTATO_SPAWNCHANCE = 4;
+    final int COW_SPAWNCHANCE = 18;
+    final int FISH_SPAWNCHANCE = 8;
+    final int DUCK_SPAWNCHANCE = 12;
 
     /* Item titles */
     final String APPLE = "Æble";
@@ -90,7 +90,7 @@ public interface GameSettings {
     final String CARROT = "Gulerod";
     final String POTATO = "Kartoffel";
     final String COW = "Steak";
-    final String FISH = "Fisk";
+    final String FISH = "Laks";
     final String DUCK = "And";
 
     final String APPLES = "æbler";
